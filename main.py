@@ -25,5 +25,10 @@ def generate_gpt():
     return jsonify({"response": response})
 
 
+@app.route('/test', methods=['POST'])
+def get_account():
+    print('test')
+
+
 if __name__ == '__main__':
     app.run()
