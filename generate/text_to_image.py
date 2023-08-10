@@ -23,7 +23,7 @@ steps = 20
 cfg_scale = 8.0
 width = int(eval(os.environ['IMAGE_WIDTH']))
 height = int(eval(os.environ['IMAGE_HEIGHT']))
-samples = 1
+samples = 4
 sampler = generation.SAMPLER_K_DPMPP_2M
 style_preset = 'anime'
 
@@ -41,7 +41,8 @@ def generate_and_stream(prompt):
     # print(prompt)
 
     answers = stability_api.generate(
-        prompt=prompt,
+        # prompt=prompt,
+        prompt='baby elephant,cute,smile,lovely,in the middle,small,walking,',
         seed=random_seed,
         steps=steps,
         cfg_scale=cfg_scale,
@@ -49,13 +50,8 @@ def generate_and_stream(prompt):
         height=height,
         samples=samples,
         sampler=sampler,
-        # style_preset=style_preset,
+        style_preset=style_preset,
     )
-
-    now = datetime.now()
-    datetime_string = now.strftime("%Y%m%d%H%M%S")
-    dir_url = 'out/'+datetime_string
-    os.makedirs(dir_url)
 
     for resp in answers:
         for artifact in resp.artifacts:
@@ -65,6 +61,10 @@ def generate_and_stream(prompt):
                 img = Image.open(io.BytesIO(artifact.binary))
                 if not os.path.exists('out'):
                     os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
                 img_path = 'image.png'
                 full_img_path = os.path.join(dir_url, img_path)
                 img.save(full_img_path)

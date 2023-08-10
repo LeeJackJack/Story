@@ -53,9 +53,6 @@ def upscale_pic(img_url, dir_url):
                 img_path = 'image_upscale.png'
                 full_img_path = os.path.join(dir_url, img_path)
                 big_img.save(full_img_path)
-                print(dir_url)
-                print(img_path)
-                print(full_img_path)
 
                 upscale_img_url = url_for('static', filename=dir_url.split('/')[1]+'/'+img_path)
 
