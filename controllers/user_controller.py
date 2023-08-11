@@ -2,10 +2,22 @@
 from database.models import User, db
 
 
-def add_new_user():
+def add_user():
     # 示例：添加一个新用户
     new_user = User(name='john', email='john@example.com')
     db.session.add(new_user)
     db.session.commit()
 
     return "User added!"
+
+
+def get_user():
+    return ''
+
+
+def edit_user():
+    return ''
+
+
+def del_user():
+    return ''

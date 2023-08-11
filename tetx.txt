@@ -1,0 +1,502 @@
+基础类
+class oss2.Auth(access_key_id, access_key_secret)[source]
+签名版本1
+
+class oss2.AnonymousAuth[source]
+用于匿名访问。
+
+Note
+匿名用户只能读取public-read的Bucket，或只能读取、写入public-read-write的Bucket。 不能进行Service、Bucket相关的操作，也不能罗列文件等。
+
+class oss2.StsAuth(access_key_id, access_key_secret, security_token, auth_version='v1')[source]
+用于STS临时凭证访问。可以通过官方STS客户端获得临时密钥（AccessKeyId、AccessKeySecret）以及临时安全令牌（SecurityToken）。
+
+注意到临时凭证会在一段时间后过期，在此之前需要重新获取临时凭证，并更新 Bucket 的 auth 成员变量为新 的 StsAuth 实例。
+
+Parameters:
+access_key_id (str) – 临时AccessKeyId
+access_key_secret (str) – 临时AccessKeySecret
+security_token (str) – 临时安全令牌(SecurityToken)
+auth_version (str) – 需要生成auth的版本，默认为AUTH_VERSION_1(v1)
+class oss2.Bucket(auth, endpoint, bucket_name, is_cname=False, session=None, connect_timeout=None, app_name='', enable_crc=True)[source]
+用于Bucket和Object操作的类，诸如创建、删除Bucket，上传、下载Object等。
+
+用法（假设Bucket属于杭州区域）
+
+>>> import oss2
+>>> auth = oss2.Auth('your-access-key-id', 'your-access-key-secret')
+>>> bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', 'your-bucket')
+>>> bucket.put_object('readme.txt', 'content of the object')
+<oss2.models.PutObjectResult object at 0x029B9930>
+Parameters:
+auth (oss2.Auth) – 包含了用户认证信息的Auth对象
+endpoint (str) – 访问域名或者CNAME
+bucket_name (str) – Bucket名
+is_cname (bool) – 如果endpoint是CNAME则设为True；反之，则为False。
+session (oss2.Session) – 会话。如果是None表示新开会话，非None则复用传入的会话
+connect_timeout (float) – 连接超时时间，以秒为单位。
+app_name (str) – 应用名。该参数不为空，则在User Agent中加入其值。 注意到，最终这个字符串是要作为HTTP Header的值传输的，所以必须要遵循HTTP标准。
+class oss2.Service(auth, endpoint, session=None, connect_timeout=None, app_name='')[source]
+用于Service操作的类，如罗列用户所有的Bucket。
+
+用法
+
+>>> import oss2
+>>> auth = oss2.Auth('your-access-key-id', 'your-access-key-secret')
+>>> service = oss2.Service(auth, 'oss-cn-hangzhou.aliyuncs.com')
+>>> service.list_buckets()
+<oss2.models.ListBucketsResult object at 0x0299FAB0>
+Parameters:
+auth (oss2.Auth) – 包含了用户认证信息的Auth对象
+endpoint (str) – 访问域名，如杭州区域的域名为oss-cn-hangzhou.aliyuncs.com
+session (oss2.Session) – 会话。如果是None表示新开会话，非None则复用传入的会话
+connect_timeout (float) – 连接超时时间，以秒为单位。
+app_name (str) – 应用名。该参数不为空，则在User Agent中加入其值。 注意到，最终这个字符串是要作为HTTP Header的值传输的，所以必须要遵循HTTP标准。
+class oss2.Session[source]
+属于同一个Session的请求共享一组连接池，如有可能也会重用HTTP连接。
+
+输入、输出和异常说明
+文件上传方法中的data参数
+诸如 put_object 这样的上传接口都会有 data 参数用于接收用户数据。data 可以是下述类型
+unicode类型（对于Python3则是str类型）：内部会自动转换为UTF-8的bytes
+bytes类型：不做任何转换
+file-like object：对于可以seek和tell的file object，从当前位置读取直到结束。其他类型，请确保当前位置是文件开始。
+可迭代类型：对于无法探知长度的数据，要求一定是可迭代的。此时会通过Chunked Encoding传输。
+Bucket配置修改方法中的input参数
+诸如 put_bucket_cors 这样的Bucket配置修改接口都会有 input 参数接收用户提供的配置数据。 input 可以是下述类型
+
+Bucket配置信息相关的类，如 BucketCors
+unicode类型（对于Python3则是str类型）
+经过utf-8编码的bytes类型
+file-like object
+可迭代类型，会通过Chunked Encoding传输
+也就是说 input 参数可以比 data 参数多接受第一种类型的输入。
+
+返回值
+Service 和 Bucket 类的大多数方法都是返回 RequestResult 及其子类。RequestResult 包含了HTTP响应的状态码、头部以及OSS Request ID，而它的子类则包含用户真正想要的结果。例如， ListBucketsResult.buckets 就是返回的Bucket信息列表；GetObjectResult 则是一个file-like object，可以调用 read() 来获取响应的 HTTP包体。
+
+异常
+一般来说Python SDK可能会抛出三种类型的异常，这些异常都继承于 OssError ：
+ClientError ：由于用户参数错误而引发的异常；
+ServerError 及其子类：OSS服务器返回非成功的状态码，如4xx或5xx；
+RequestError ：底层requests库抛出的异常，如DNS解析错误，超时等；
+当然，Bucket.put_object_from_file 和 Bucket.get_object_to_file 这类函数还会抛出文件相关的异常。
+
+指定下载范围
+诸如 get_object 以及 upload_part_copy 这样的函数，可以接受 byte_range 参数，表明读取数据的范围。该参数是一个二元tuple：(start, last)。这些接口会把它转换为Range头部的值，如：
+
+byte_range 为 (0, 99) 转换为 ‘bytes=0-99’，表示读取前100个字节
+byte_range 为 (None, 99) 转换为 ‘bytes=-99’，表示读取最后99个字节
+byte_range 为 (100, None) 转换为 ‘bytes=100-‘，表示读取第101个字节到文件结尾的部分（包含第101个字节）
+分页罗列
+罗列各种资源的接口，如 list_buckets 、 list_objects 都支持 分页查询。通过设定分页标记（如：marker 、 key_marker ）的方式可以指定查询某一页。首次调用将分页标记设为空（缺省值，可以不设）， 后续的调用使用返回值中的 next_marker 、 next_key_marker 等。每次调用后检查返回值中的 is_truncated ，其值为 False 说明 已经到了最后一页。
+
+上传下载进度
+上传下载接口，诸如 get_object 、 put_object 、resumable_upload，都支持进度回调函数，可以用它实现进度条等功能。
+
+progress_callback 的函数原型如下
+
+def progress_callback(bytes_consumed, total_bytes):
+    '''进度回调函数。
+
+    :param int bytes_consumed: 已经消费的字节数。对于上传，就是已经上传的量；对于下载，就是已经下载的量。
+    :param int total_bytes: 总长度。
+    '''
+其中 total_bytes 对于上传和下载有不同的含义：
+上传：当输入是bytes或可以seek/tell的文件对象，那么它的值就是总的字节数；否则，其值为None
+下载：当返回的HTTP相应中有Content-Length头部，那么它的值就是Content-Length的值；否则，其值为None
+Unix Time
+OSS Python SDK会把从服务器获得时间戳都转换为自1970年1月1日UTC零点以来的秒数，即Unix Time。 参见 Unix Time
+
+OSS中常用的时间格式有
+HTTP Date格式，形如 Sat, 05 Dec 2015 11:04:39 GMT 这样的GMT时间。 用在If-Modified-Since、Last-Modified这些HTTP请求、响应头里。
+ISO8601格式，形如 2015-12-05T00:00:00.000Z。 用在生命周期管理配置、列举Bucket结果中的创建时间、列举文件结果中的最后修改时间等处。
+http_date 函数把Unix Time转换为HTTP Date；而 http_to_unixtime 则做相反的转换。如
+
+>>> import oss2, time
+>>> unix_time = int(time.time())             # 当前UNIX Time，设其值为 1449313829
+>>> date_str = oss2.http_date(unix_time)     # 得到 'Sat, 05 Dec 2015 11:10:29 GMT'
+>>> oss2.http_to_unixtime(date_str)          # 得到 1449313829
+Note
+生成HTTP协议所需的日期（即HTTP Date）时，请使用 http_date ， 不要使用 strftime 这样的函数。因为后者是和locale相关的。 比如，strftime 结果中可能会出现中文，而这样的格式，OSS服务器是不能识别的。
+
+iso8601_to_unixtime 把ISO8601格式转换为Unix Time；date_to_iso8601 和 iso8601_to_date 则在ISO8601格式的字符串和 datetime.date之间相互转换。如
+
+>>> import oss2
+>>> d = oss2.iso8601_to_date('2015-12-05T00:00:00.000Z')  # 得到 datetime.date(2015, 12, 5)
+>>> date_str = oss2.date_to_iso8601(d)                    # 得到 '2015-12-05T00:00:00.000Z'
+>>> oss2.iso8601_to_unixtime(date_str)                    # 得到 1449273600
+文件（Object）相关操作
+上传
+Bucket.put_object(key, data, headers=None, progress_callback=None)[source]
+上传一个普通文件。
+
+用法 ::
+>>> bucket.put_object('readme.txt', 'content of readme.txt')
+>>> with open(u'local_file.txt', 'rb') as f:
+>>>     bucket.put_object('remote_file.txt', f)
+Parameters:
+key – 上传到OSS的文件名
+data (bytes，str或file-like object) – 待上传的内容。
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – 用户指定的HTTP头部。可以指定Content-Type、Content-MD5、x-oss-meta-开头的头部等
+progress_callback – 用户指定的进度回调函数。可以用来实现进度条等功能。参考 上传下载进度 。
+Returns:
+PutObjectResult
+
+Bucket.put_object_from_file(key, filename, headers=None, progress_callback=None)[source]
+上传一个本地文件到OSS的普通文件。
+
+Parameters:
+key (str) – 上传到OSS的文件名
+filename (str) – 本地文件名，需要有可读权限
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – 用户指定的HTTP头部。可以指定Content-Type、Content-MD5、x-oss-meta-开头的头部等
+progress_callback – 用户指定的进度回调函数。参考 上传下载进度
+Returns:
+PutObjectResult
+
+Bucket.append_object(key, position, data, headers=None, progress_callback=None, init_crc=None)[source]
+追加上传一个文件。
+
+Parameters:
+key (str) – 新的文件名，或已经存在的可追加文件名
+position (int) – 追加上传一个新的文件， position 设为0；追加一个已经存在的可追加文件， position 设为文件的当前长度。 position 可以从上次追加的结果 AppendObjectResult.next_position 中获得。
+data (str、bytes、file-like object或可迭代对象) – 用户数据
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – 用户指定的HTTP头部。可以指定Content-Type、Content-MD5、x-oss-开头的头部等
+progress_callback – 用户指定的进度回调函数。参考 上传下载进度
+Returns:
+AppendObjectResult
+
+Raises:
+如果 position 和当前文件长度不一致，抛出 PositionNotEqualToLength ； 如果当前文件不是可追加类型，抛出 ObjectNotAppendable ； 还会抛出其他一些异常
+
+下载
+Bucket.get_object(key, byte_range=None, headers=None, progress_callback=None, process=None, params=None)[source]
+下载一个文件。
+
+用法
+
+>>> result = bucket.get_object('readme.txt')
+>>> print(result.read())
+'hello world'
+Parameters:
+key – 文件名
+byte_range – 指定下载范围。参见 指定下载范围
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部
+progress_callback – 用户指定的进度回调函数。参考 上传下载进度
+process – oss文件处理，如图像服务等。指定后process，返回的内容为处理后的文件。
+params (dict) – http 请求的查询字符串参数
+Returns:
+file-like object
+
+Raises:
+如果文件不存在，则抛出 NoSuchKey ；还可能抛出其他异常
+
+Bucket.get_object_to_file(key, filename, byte_range=None, headers=None, progress_callback=None, process=None, params=None)[source]
+下载一个文件到本地文件。
+
+Parameters:
+key – 文件名
+filename – 本地文件名。要求父目录已经存在，且有写权限。
+byte_range – 指定下载范围。参见 指定下载范围
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部
+progress_callback – 用户指定的进度回调函数。参考 上传下载进度
+process – oss文件处理，如图像服务等。指定后process，返回的内容为处理后的文件。
+params (dict) – http 请求的查询字符串参数
+Returns:
+如果文件不存在，则抛出 NoSuchKey ；还可能抛出其他异常
+
+删除
+Bucket.delete_object(key)[source]
+删除一个文件。
+
+Parameters:	key (str) – 文件名
+Returns:	RequestResult
+Bucket.batch_delete_objects(key_list)[source]
+批量删除文件。待删除文件列表不能为空。
+
+Parameters:	key_list (list of str) – 文件名列表，不能为空。
+Returns:	BatchDeleteObjectsResult
+罗列
+Bucket.list_objects(prefix='', delimiter='', marker='', max_keys=100)[source]
+根据前缀罗列Bucket里的文件。
+
+Parameters:
+prefix (str) – 只罗列文件名为该前缀的文件
+delimiter (str) – 分隔符。可以用来模拟目录
+marker (str) – 分页标志。首次调用传空串，后续使用返回值的next_marker
+max_keys (int) – 最多返回文件的个数，文件和目录的和不能超过该值
+Returns:
+ListObjectsResult
+
+获取、更改文件信息
+Bucket.head_object(key, headers=None)[source]
+获取文件元信息。
+
+HTTP响应的头部包含了文件元信息，可以通过 RequestResult 的 headers 成员获得。 用法
+
+>>> result = bucket.head_object('readme.txt')
+>>> print(result.content_type)
+text/plain
+Parameters:
+key – 文件名
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部
+Returns:
+HeadObjectResult
+
+Raises:
+如果Bucket不存在或者Object不存在，则抛出 NotFound
+
+Bucket.object_exists(key)[source]
+如果文件存在就返回True，否则返回False。如果Bucket不存在，或是发生其他错误，则抛出异常。
+
+Bucket.put_object_acl(key, permission)[source]
+设置文件的ACL。
+
+Parameters:
+key (str) – 文件名
+permission (str) – 可以是oss2.OBJECT_ACL_DEFAULT、oss2.OBJECT_ACL_PRIVATE、oss2.OBJECT_ACL_PUBLIC_READ或 oss2.OBJECT_ACL_PUBLIC_READ_WRITE。
+Returns:
+RequestResult
+
+Bucket.get_object_acl(key)[source]
+获取文件的ACL。
+
+Returns:	GetObjectAclResult
+Bucket.update_object_meta(key, headers)[source]
+更改Object的元数据信息，包括Content-Type这类标准的HTTP头部，以及以x-oss-meta-开头的自定义元数据。
+
+用户可以通过 head_object() 获得元数据信息。
+
+Parameters:
+key (str) – 文件名
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部，包含了元数据信息
+Returns:
+RequestResult
+
+Bucket.get_object_meta(key)[source]
+获取文件基本元信息，包括该Object的ETag、Size（文件大小）、LastModified，并不返回其内容。
+
+HTTP响应的头部包含了文件基本元信息，可以通过 GetObjectMetaResult 的 last_modified，content_length,`etag` 成员获得。
+
+Parameters:	key – 文件名
+Returns:	GetObjectMetaResult
+Raises:	如果文件不存在，则抛出 NoSuchKey ；还可能抛出其他异常
+分片上传
+Bucket.init_multipart_upload(key, headers=None)[source]
+初始化分片上传。
+
+返回值中的 upload_id 以及Bucket名和Object名三元组唯一对应了此次分片上传事件。
+
+Parameters:
+key (str) – 待上传的文件名
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部
+Returns:
+InitMultipartUploadResult
+
+Bucket.upload_part(key, upload_id, part_number, data, progress_callback=None, headers=None)[source]
+上传一个分片。
+
+Parameters:
+key (str) – 待上传文件名，这个文件名要和 init_multipart_upload() 的文件名一致。
+upload_id (str) – 分片上传ID
+part_number (int) – 分片号，最小值是1.
+data – 待上传数据。
+progress_callback – 用户指定进度回调函数。可以用来实现进度条等功能。参考 上传下载进度 。
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – 用户指定的HTTP头部。可以指定Content-MD5头部等
+Returns:
+PutObjectResult
+
+Bucket.complete_multipart_upload(key, upload_id, parts, headers=None)[source]
+完成分片上传，创建文件。
+
+Parameters:
+key (str) – 待上传的文件名，这个文件名要和 init_multipart_upload() 的文件名一致。
+upload_id (str) – 分片上传ID
+parts (list of PartInfo <oss2.models.PartInfo>) – PartInfo列表。PartInfo中的part_number和etag是必填项。其中的etag可以从 upload_part() 的返回值中得到。
+headers (可以是dict，建议是oss2.CaseInsensitiveDict) – HTTP头部
+Returns:
+PutObjectResult
+
+Bucket.abort_multipart_upload(key, upload_id)[source]
+取消分片上传。
+
+Parameters:
+key (str) – 待上传的文件名，这个文件名要和 init_multipart_upload() 的文件名一致。
+upload_id (str) – 分片上传ID
+Returns:
+RequestResult
+
+Bucket.list_multipart_uploads(prefix='', delimiter='', key_marker='', upload_id_marker='', max_uploads=1000)[source]
+罗列正在进行中的分片上传。支持分页。
+
+Parameters:
+prefix (str) – 只罗列匹配该前缀的文件的分片上传
+delimiter (str) – 目录分割符
+key_marker (str) – 文件名分页符。第一次调用可以不传，后续设为返回值中的 next_key_marker
+upload_id_marker (str) – 分片ID分页符。第一次调用可以不传，后续设为返回值中的 next_upload_id_marker
+max_uploads (int) – 一次罗列最多能够返回的条目数
+Returns:
+ListMultipartUploadsResult
+
+Bucket.list_parts(key, upload_id, marker='', max_parts=1000)[source]
+列举已经上传的分片。支持分页。
+
+Parameters:
+key (str) – 文件名
+upload_id (str) – 分片上传ID
+marker (str) – 分页符
+max_parts (int) – 一次最多罗列多少分片
+Returns:
+ListPartsResult
+
+符号链接
+Bucket.put_symlink(target_key, symlink_key, headers=None)[source]
+创建Symlink。
+
+Parameters:
+target_key (str) – 目标文件，目标文件不能为符号连接
+symlink_key (str) – 符号连接类文件，其实质是一个特殊的文件，数据指向目标文件
+Returns:
+RequestResult
+
+Bucket.get_symlink(symlink_key)[source]
+获取符号连接文件的目标文件。
+
+Parameters:	symlink_key (str) – 符号连接类文件
+Returns:	GetSymlinkResult
+Raises:	如果文件的符号链接不存在，则抛出 NoSuchKey ；还可能抛出其他异常
+存储空间（Bucket）相关操作
+创建、删除、查询
+Bucket.create_bucket(permission=None, input=None)[source]
+创建新的Bucket。
+
+Parameters:
+permission (str) – 指定Bucket的ACL。可以是oss2.BUCKET_ACL_PRIVATE（推荐、缺省）、oss2.BUCKET_ACL_PUBLIC_READ或是 oss2.BUCKET_ACL_PUBLIC_READ_WRITE。
+input – BucketCreateConfig object
+Bucket.delete_bucket()[source]
+删除一个Bucket。只有没有任何文件，也没有任何未完成的分片上传的Bucket才能被删除。
+
+Returns:	RequestResult
+“:raises: 如果试图删除一个非空Bucket，则抛出 BucketNotEmpty
+
+Bucket.get_bucket_location()[source]
+获取Bucket的数据中心。
+
+Returns:	GetBucketLocationResult
+Bucket权限管理
+Bucket.put_bucket_acl(permission)[source]
+设置Bucket的ACL。
+
+Parameters:	permission (str) – 新的ACL，可以是oss2.BUCKET_ACL_PRIVATE、oss2.BUCKET_ACL_PUBLIC_READ或 oss2.BUCKET_ACL_PUBLIC_READ_WRITE
+Bucket.get_bucket_acl()[source]
+获取Bucket的ACL。
+
+Returns:	GetBucketAclResult
+跨域资源共享（CORS）
+Bucket.put_bucket_cors(input)[source]
+设置Bucket的CORS。
+
+Parameters:	input – BucketCors 对象或其他
+Bucket.get_bucket_cors()[source]
+获取Bucket的CORS配置。
+
+Returns:	GetBucketCorsResult
+Bucket.delete_bucket_cors()[source]
+删除Bucket的CORS配置。
+
+生命周期管理
+Bucket.put_bucket_lifecycle(input)[source]
+设置生命周期管理的配置。
+
+Parameters:	input – BucketLifecycle 对象或其他
+Bucket.get_bucket_lifecycle()[source]
+获取生命周期管理配置。
+
+Returns:	GetBucketLifecycleResult
+Raises:	如果没有设置Lifecycle，则抛出 NoSuchLifecycle
+Bucket.delete_bucket_lifecycle()[source]
+删除生命周期管理配置。如果Lifecycle没有设置，也返回成功。
+
+日志收集
+Bucket.put_bucket_logging(input)[source]
+设置Bucket的访问日志功能。
+
+Parameters:	input – BucketLogging 对象或其他
+Bucket.get_bucket_logging()[source]
+获取Bucket的访问日志功能配置。
+
+Returns:	GetBucketLoggingResult
+Bucket.delete_bucket_logging()[source]
+关闭Bucket的访问日志功能。
+
+防盗链
+Bucket.put_bucket_referer(input)[source]
+为Bucket设置防盗链。
+
+Parameters:	input – BucketReferer 对象或其他
+Bucket.get_bucket_referer()[source]
+获取Bucket的防盗链配置。
+
+Returns:	GetBucketRefererResult
+静态网站托管
+Bucket.put_bucket_website(input)[source]
+为Bucket配置静态网站托管功能。
+
+Parameters:	input – BucketWebsite
+Bucket.get_bucket_website()[source]
+获取Bucket的静态网站托管配置。
+
+Returns:	GetBucketWebsiteResult
+Raises:	如果没有设置静态网站托管，那么就抛出 NoSuchWebsite
+Bucket.delete_bucket_website()[source]
+关闭Bucket的静态网站托管功能。
+
+RTPM推流操作
+Bucket.create_live_channel(channel_name, input)[source]
+创建推流直播频道
+
+Parameters:
+channel_name (str) – 要创建的live channel的名称
+input – LiveChannelInfo类型，包含了live channel中的描述信息
+Returns:
+CreateLiveChannelResult
+
+Bucket.delete_live_channel(channel_name)[source]
+删除推流直播频道
+
+Parameters:	channel_name (str) – 要删除的live channel的名称
+Bucket.get_live_channel(channel_name)[source]
+获取直播频道配置
+
+Parameters:	channel_name (str) – 要获取的live channel的名称
+Returns:	GetLiveChannelResult
+Bucket.list_live_channel(prefix='', marker='', max_keys=100)[source]
+列举出Bucket下所有符合条件的live channel
+
+param: str prefix: list时channel_id的公共前缀 param: str marker: list时指定的起始标记 param: int max_keys: 本次list返回live channel的最大个数
+
+return: ListLiveChannelResult
+
+Bucket.get_live_channel_stat(channel_name)[source]
+获取live channel当前推流的状态
+
+param str channel_name: 要获取推流状态的live channel的名称
+
+return: GetLiveChannelStatResult
+
+Bucket.put_live_channel_status(channel_name, status)[source]
+更改live channel的status，仅能在“enabled”和“disabled”两种状态中更改
+
+param str channel_name: 要更改status的live channel的名称 param str status: live channel的目标status
+
+Bucket.get_live_channel_history(channel_name)[source]
+获取live channel中最近的最多十次的推流记录，记录中包含推流的起止时间和远端的地址
+
+param str channel_name: 要获取最近推流记录的live channel的名称
+
+return: GetLiveChannelHistoryResult
+
+Bucket.post_vod_playlist(channel_name, playlist_name, start_time=0, end_time=0)[source]
+根据指定的playlist name以及startTime和endTime生成一个点播的播放列表
+
+param str channel_name: 要生成点播列表的live channel的名称 param str playlist_name: 要生成点播列表m3u8文件的名称 param int start_time: 点播的起始时间，Unix Time格式，可以使用int(time.time())获取 param int end_time: 点播的结束时间，Unix Time格式，可以使用int(time.time())获取

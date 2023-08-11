@@ -4,7 +4,8 @@ from generate.text_to_image import generate_and_stream
 from generate.completions import get_lan_response
 from database.models import db, User
 import os
-from controllers.user_controller import add_new_user
+from controllers.user_controller import add_user
+from tools.ali_oss import upload_pic
 
 load_dotenv()  # 加载 .env 文件中的变量
 app = Flask(__name__, static_folder='out')
@@ -24,7 +25,7 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("image.html")
 
 
 @app.route('/generateImg', methods=['POST'])
@@ -45,10 +46,15 @@ def get_account():
     print('test')
 
 
+@app.route('/uploadImg', methods=['GET'])
+def upload_img():
+    return upload_pic('1', '2')
+
+
 # 测试数据连接
 @app.route('/getUser')
 def get_user():
-    return add_new_user()
+    return add_user()
 
 
 if __name__ == '__main__':
