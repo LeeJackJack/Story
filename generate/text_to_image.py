@@ -10,6 +10,9 @@ import warnings
 from datetime import datetime
 from generate.image_to_image import generate_and_stream as img2img
 from tools.upscale import upscale_pic
+from tools.ali_oss import upload_pic
+from controllers.image_controller import add_image
+from controllers.protagonist_image_controller import add_protagonist_image
 
 
 load_dotenv()
@@ -23,7 +26,7 @@ steps = 20
 cfg_scale = 8.0
 width = int(eval(os.environ['IMAGE_WIDTH']))
 height = int(eval(os.environ['IMAGE_HEIGHT']))
-samples = 4
+samples = 3
 sampler = generation.SAMPLER_K_DPMPP_2M
 style_preset = 'anime'
 
@@ -38,17 +41,87 @@ def generate_and_stream(prompt):
     )
 
     prompt = request.json.get('prompt')
-    # print(prompt)
+    # prompt = 'baby elephant,cute,smile,lovely,in the middle,small,walking,'
+    print(prompt)
 
     answers = stability_api.generate(
         # prompt=prompt,
-        prompt='baby elephant,cute,smile,lovely,in the middle,small,walking,',
+        prompt=prompt,
         seed=random_seed,
         steps=steps,
         cfg_scale=cfg_scale,
         width=width,
         height=height,
         samples=samples,
+        sampler=sampler,
+        style_preset=style_preset,
+    )
+
+    # 图片数组
+    images = []
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.finish_reason == generation.FILTER:
+                warnings.warn("Your request activated the API's safety filters and could not be processed.")
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                if not os.path.exists('out'):
+                    os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
+                img_path = 'image.png'
+                full_img_path = os.path.join(dir_url, img_path)
+                img.save(full_img_path)
+                generate_result = upload_pic(img_path, dir_url)
+                # 把生成图片存储到数据库
+                add_image(image_url=generate_result, description=prompt, user_id=1)
+                yield f"Image generated successfully! URL: {full_img_path}\n"
+
+                # 图生图方法
+                # enhanced_img_url = img2img(full_img_path, dir_url)
+                # yield f"Enhanced Image generated successfully! URL: {enhanced_img_url}\n"
+
+                # 放大图片方法
+                upscale_img_url = upscale_pic(full_img_path, dir_url)
+
+                # 上传图片到alioss并返回网络地址
+                final_url = ''
+                if upscale_img_url:
+                    final_url = upload_pic('image_upscale.png', dir_url)
+                    images.append(final_url)
+
+                    # 把生成图片存储到数据库
+                    add_image(image_url=final_url, description=prompt, user_id=1)
+
+                print(images)
+                yield f"Upscale Image generated successfully! FI-URL: {images}\n"
+
+    yield "done"
+
+
+def generate_and_stream_protagonist(prompt, protagonist_id):
+    yield "Image generation started...\n"
+
+    stability_api = client.StabilityInference(
+        key=api_key,
+        verbose=True,
+        engine=engine_id,
+    )
+
+    prompt = "There is a lively little elephant."
+    protagonist_id = 1
+
+    answers = stability_api.generate(
+        prompt=prompt,
+        seed=random_seed,
+        steps=steps,
+        cfg_scale=cfg_scale,
+        width=width,
+        height=height,
+        samples=1,
         sampler=sampler,
         style_preset=style_preset,
     )
@@ -68,12 +141,63 @@ def generate_and_stream(prompt):
                 img_path = 'image.png'
                 full_img_path = os.path.join(dir_url, img_path)
                 img.save(full_img_path)
-                yield f"Image generated successfully! URL: {full_img_path}\n"
+                generate_result = upload_pic(img_path, dir_url)
+                # 把生成图片存储到数据库
+                add_protagonist_image(image_url=generate_result, protagonist_id=protagonist_id, user_id=1)
+                print(generate_result)
+                yield f"Upscale Image generated successfully! FI-URL: {generate_result}\n"
 
-                # enhanced_img_url = img2img(full_img_path, dir_url)
-                # yield f"Enhanced Image generated successfully! URL: {enhanced_img_url}\n"
+    yield "done"
 
-                upscale_img_url = upscale_pic(full_img_path, dir_url)
-                yield f"Upscale Image generated successfully! FI-URL: {upscale_img_url}\n"
+
+def generate_and_stream_plot_image(content):
+    yield "Image generation started...\n"
+
+    stability_api = client.StabilityInference(
+        key=api_key,
+        verbose=True,
+        engine=engine_id,
+    )
+
+    prompt = content
+
+    answers = stability_api.generate(
+        prompt=prompt,
+        seed=random_seed,
+        steps=steps,
+        cfg_scale=cfg_scale,
+        width=width,
+        height=height,
+        samples=samples,
+        sampler=sampler,
+        style_preset=style_preset,
+    )
+
+    # 图片数组
+    images = []
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.finish_reason == generation.FILTER:
+                warnings.warn("Your request activated the API's safety filters and could not be processed.")
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                if not os.path.exists('out'):
+                    os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
+                img_path = 'image.png'
+                full_img_path = os.path.join(dir_url, img_path)
+                img.save(full_img_path)
+                # 把图片存储到阿里云oss
+                generate_result = upload_pic(img_path, dir_url)
+                # 把生成图片存储到数据库
+                add_image(image_url=generate_result, description=prompt, user_id=1)
+                images.append(generate_result)
+
+                print(images)
+                yield f"Upscale Image generated successfully! FI-URL: {images}\n"
 
     yield "done"

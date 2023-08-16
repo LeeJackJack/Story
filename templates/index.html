@@ -92,39 +92,39 @@
     //准备gpt数据
     $(document).ready(function() {
         $("#btn_control").click(function() {
-            $("#showText").val("正在请求GPT...");
-
+            //$("#showText").val("正在请求GPT...");
+            createPic();
             //请求GPT
-            fetch('/generateGpt', {
-                method: 'POST',
-                body: JSON.stringify({
-                    prompt: ''
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
+            //fetch('/generateGpt', {
+            //    method: 'POST',
+            //    body: JSON.stringify({
+            //        prompt: ''
+            //    }),
+            //    headers: {
+            //        'Content-Type': 'application/json'
+            //    }
+            //})
+            //.then(response => response.json())
+            //.then(data => {
                 //console.log(data.response);
-                createPic(data.response);
-                $("#showText").html(data.response);
-            })
-            .catch(err => {
-                console.error("Fetch error: ", err);
-            });
+            //    createPic(data.response);
+            //    $("#showText").html(data.response);
+            //})
+            //.catch(err => {
+                //console.error("Fetch error: ", err);
+            //});
         });
     });
 
     //请求生成图片
-    function createPic(prompt) {
-        $("#showText").html(prompt);
+    function createPic() {
+        //$("#showText").html(prompt);
         $("#loadingContainer").show();// 显示加载容器
 
-        fetch('/generateImg', {
+        fetch('/getPlotImage', {
             method: 'POST',
             body: JSON.stringify({
-                prompt: prompt
+
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -157,11 +157,12 @@
                         let message = lines[i];
                         console.log("Parsed message:", message);
                         if (message.includes('FI-URL:')) {
-                            let imageUrl = message.split('FI-URL: ')[1].trim();
-                            let baseUrl = window.location.protocol + "//" + window.location.host;
-                            let fullUrl = baseUrl + imageUrl;
+                            console.log(message);
+                            //let imageUrl = message.split('FI-URL: ')[1].trim();
+                            //let baseUrl = window.location.protocol + "//" + window.location.host;
+                            //let fullUrl = baseUrl + imageUrl;
                             //console.log(fullUrl);
-                            $("#showImg").attr("src", fullUrl);
+                            //$("#showImg").attr("src", imageUrl);
                         }
                     }
                     accumulator = lines[lines.length - 1];
