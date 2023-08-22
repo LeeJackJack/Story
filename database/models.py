@@ -69,6 +69,7 @@ class Protagonist(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     valid = db.Column(db.Boolean, default=True)
     image_description = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(255), nullable=False)
 
 
 # 图片表

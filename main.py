@@ -4,6 +4,7 @@ from generate.text_to_image import generate_and_stream, generate_and_stream_prot
 from generate.completions import get_lan_response
 from database.models import db, User
 import os
+from flask_cors import cross_origin
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
 from controllers.protagonist_controller import get_random_protagonist
@@ -102,6 +103,13 @@ def get_story_plot_image():
     description = get_description(plot_id=plot_id)
 
     return Response(stream_with_context(generate_and_stream_plot_image(description['content'])), content_type='text/plain')
+
+
+@app.route('/testAPI', methods=['GET'])
+@cross_origin()
+def test_api():
+    result = get_random_protagonist()
+    return jsonify(result)
 
 
 if __name__ == '__main__':

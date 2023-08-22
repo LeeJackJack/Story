@@ -32,7 +32,8 @@ def get_random_protagonist():
             "created_at": protagonist.created_at,
             "updated_at": protagonist.updated_at,
             "valid": protagonist.valid,
-            "image_description": protagonist.image_description
+            "image_description": protagonist.image_description,
+            "image": protagonist.image
         }
     else:
         return None
