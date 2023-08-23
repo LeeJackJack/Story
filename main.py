@@ -1,18 +1,20 @@
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
 from dotenv import load_dotenv
-from generate.text_to_image import generate_and_stream, generate_and_stream_protagonist, generate_and_stream_plot_image
+from generate.text_to_image import generate_and_stream, generate_and_stream_protagonist, generate_and_stream_plot_image, generate_and_save_plot_image
 from generate.completions import get_lan_response
 from database.models import db, User
 import os
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
 from controllers.protagonist_controller import get_random_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
+from controllers.album_controller import get_album, edit_album
+from app_instance import app
 
 load_dotenv()  # 加载 .env 文件中的变量
-app = Flask(__name__, static_folder='out')
+CORS(app)
 
 # 使用 os.environ 从 .env 文件中获取配置
 DATABASE_USERNAME = os.environ['DATABASE_USERNAME']
@@ -85,15 +87,13 @@ def create_protagonist():
         return jsonify({"error": "No protagonist found"}), 404
 
 
-@app.route('/getPlot')
+@app.route('/getPlot', methods=['GET'])
 def get_story_plot():
-    chapter = request.json.get('chapter')
-    theme_id = request.json.get('prompt')
+    chapter = int(request.args.get('chapter_next'))
+    print(chapter)
+    theme_id = int(request.args.get('theme_id'))
     plot = get_random_story_plot(chapter, theme_id)
-    if plot:
-        return jsonify(plot)
-    else:
-        return jsonify({"error": "No protagonist found"}), 404
+    return jsonify(plot)
 
 
 @app.route('/getPlotImage', methods=['POST'])
@@ -105,10 +105,31 @@ def get_story_plot_image():
     return Response(stream_with_context(generate_and_stream_plot_image(description['content'])), content_type='text/plain')
 
 
-@app.route('/testAPI', methods=['GET'])
-@cross_origin()
-def test_api():
-    result = get_random_protagonist()
+@app.route('/getAlbum', methods=['GET'])
+def get_album_route():
+    # 获取请求中的 'id' 参数
+    album_id = request.args.get('album_id', type=int)
+    result = get_album(album_id=album_id)
+    return jsonify(result)
+
+
+@app.route('/changeImage', methods=['GET'])
+def change_plot_image():
+    description = request.args.get('description')
+    album_id = request.args.get('album_id', type=int)
+    user_id = request.args.get('user_id', type=int)
+    result = generate_and_save_plot_image(description, album_id, user_id)
+    next(result)
+    image_url = next(result)
+    return jsonify(image_url)
+
+
+@app.route('/saveAlbum', methods=['GET'])
+def save_album():
+    album_id = request.args.get('album_id', type=int)
+    data = request.args.get('formData')
+    # print(data)
+    result = edit_album(album_id=album_id, content=data)
     return jsonify(result)
 
 

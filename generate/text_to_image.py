@@ -13,6 +13,7 @@ from tools.upscale import upscale_pic
 from tools.ali_oss import upload_pic
 from controllers.image_controller import add_image
 from controllers.protagonist_image_controller import add_protagonist_image
+from app_instance import app
 
 
 load_dotenv()
@@ -22,7 +23,7 @@ api_key = os.environ['STABILITY_KEY']
 
 # sd参数
 random_seed = random.randint(100_000_000, 999_999_999)
-steps = 20
+steps = 10
 cfg_scale = 8.0
 width = int(eval(os.environ['IMAGE_WIDTH']))
 height = int(eval(os.environ['IMAGE_HEIGHT']))
@@ -150,7 +151,7 @@ def generate_and_stream_protagonist(prompt, protagonist_id):
     yield "done"
 
 
-def generate_and_stream_plot_image(content):
+def generate_and_stream_plot_four_image(content):
     yield "Image generation started...\n"
 
     stability_api = client.StabilityInference(
@@ -201,3 +202,105 @@ def generate_and_stream_plot_image(content):
                 yield f"Upscale Image generated successfully! FI-URL: {images}\n"
 
     yield "done"
+
+
+def generate_and_stream_plot_image(content):
+    yield "Image generation started...\n"
+
+    stability_api = client.StabilityInference(
+        key=api_key,
+        verbose=True,
+        engine=engine_id,
+    )
+
+    prompt = content
+
+    answers = stability_api.generate(
+        prompt=prompt,
+        seed=random_seed,
+        steps=steps,
+        cfg_scale=cfg_scale,
+        width=width,
+        height=height,
+        samples=1,
+        sampler=sampler,
+        style_preset=style_preset,
+    )
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.finish_reason == generation.FILTER:
+                warnings.warn("Your request activated the API's safety filters and could not be processed.")
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                if not os.path.exists('out'):
+                    os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
+                img_path = 'image.png'
+                full_img_path = os.path.join(dir_url, img_path)
+                img.save(full_img_path)
+                # 把图片存储到阿里云oss
+                generate_result = upload_pic(img_path, dir_url)
+
+                yield generate_result
+
+    yield "done"
+
+
+def generate_and_save_plot_image(description, album_id, user_id):
+    yield "Image generation started...\n"
+
+    stability_api = client.StabilityInference(
+        key=api_key,
+        verbose=True,
+        engine=engine_id,
+    )
+
+    prompt = description
+
+    answers = stability_api.generate(
+        prompt=prompt,
+        seed=random.randint(100_000_000, 999_999_999),
+        steps=steps,
+        cfg_scale=cfg_scale,
+        width=width,
+        height=height,
+        samples=1,
+        sampler=sampler,
+        style_preset=style_preset,
+    )
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.finish_reason == generation.FILTER:
+                warnings.warn("Your request activated the API's safety filters and could not be processed.")
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                if not os.path.exists('out'):
+                    os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
+                img_path = 'image.png'
+                full_img_path = os.path.join(dir_url, img_path)
+                img.save(full_img_path)
+                # 把图片存储到阿里云oss
+                generate_result = upload_pic(img_path, dir_url)
+                # 把图片存储到image表
+                with app.app_context():
+                    image_details = add_image(image_url=generate_result, album_id=album_id, user_id=user_id,
+                              image_description=description, cost=0.2)
+
+                # 合并 generate_result 和 image_details 到一个字典中并返回
+                combined_result = {
+                    "generated_image_url": generate_result,
+                    "image_details": image_details
+                }
+                yield combined_result
+
+    yield "done"
+

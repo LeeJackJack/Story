@@ -8,6 +8,7 @@ click==8.1.6
 crcmod==1.7
 cryptography==41.0.3
 Flask==2.3.2
+Flask-Cors==4.0.0
 Flask-SQLAlchemy==3.0.5
 grpcio==1.53.0
 grpcio-tools==1.53.0
