@@ -53,9 +53,11 @@ class StoryPlot(db.Model):
     theme_id = db.Column(db.Integer, db.ForeignKey('album_theme.id'), nullable=False)  # 外键指向画册主题表的id
     chapter = db.Column(db.Integer, nullable=False)  # 章节编号
     description = db.Column(db.String(100), nullable=False)  # 章节描述
+    gpt_description = db.relationship('Description', backref='story_plot', lazy=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     valid = db.Column(db.Boolean, default=True)
+    default_image = db.Column(db.Text, nullable=False)
 
 # 主人翁（主角）表
 class Protagonist(db.Model):
@@ -100,9 +102,9 @@ class Image(db.Model):
     # 主键
     id = db.Column(db.Integer, primary_key=True)
     # 图片描述
-    description = db.Column(db.String(255), nullable=True)
+    image_description = db.Column(db.String(255), nullable=True)
     # 图片地址
-    image_url = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.Text, nullable=False)
     # 所属画册的外键
     album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=False)
     # 所属用户的外键
@@ -122,6 +124,7 @@ class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'))  # 外键指向图片表的id，可以为空
+    image = db.relationship('Image', backref='descriptions', lazy=True)  # 注意这里使用了复数形式
     plot_id = db.Column(db.Integer, db.ForeignKey('story_plot.id'))  # 外键指向主题剧情表的id，可以为空
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
