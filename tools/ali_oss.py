@@ -12,7 +12,7 @@ def upload_pic(img_name, dir_name):
     bucket = oss2.Bucket(auth, os.environ['OSS_ENDPOINT'], os.environ['OSS_BUCKETNAME'])
 
     # 创建模拟的OSS文件夹结构
-    oss_object_key = os.path.join(dir_name, img_name)
+    oss_object_key = os.path.join(dir_name, img_name).replace('\\', '/')
 
     # 本地文件路径
     local_file_path = os.path.join(dir_name, img_name)
