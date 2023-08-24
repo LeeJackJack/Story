@@ -4,16 +4,18 @@ from generate.text_to_image import generate_and_stream, generate_and_stream_prot
 from generate.completions import get_lan_response
 from database.models import db, User
 import os
-from flask_cors import cross_origin
+from flask_cors import cross_origin ,  CORS
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
-from controllers.protagonist_controller import get_random_protagonist
+from controllers.protagonist_controller import get_random_protagonist,get_preset_role, generate_role_image, create_role
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 
+
 load_dotenv()  # 加载 .env 文件中的变量
 app = Flask(__name__, static_folder='out')
-
+# 在app实例化后立即调用,本地调试时解决跨域问题
+CORS(app)
 # 使用 os.environ 从 .env 文件中获取配置
 DATABASE_USERNAME = os.environ['DATABASE_USERNAME']
 DATABASE_PASSWORD = os.environ['DATABASE_PASSWORD']
@@ -110,6 +112,25 @@ def get_story_plot_image():
 def test_api():
     result = get_random_protagonist()
     return jsonify(result)
+
+# 获取预设角色描述及图片
+@app.route('/api/roles/preset/random', methods=['GET'])
+def get_preset_role_route():
+    preset = request.args.get('preset', type=bool, default=False)
+    return get_preset_role(preset)
+
+# 根据编辑的描述生成图片
+@app.route('/api/roles/generate-image', methods=['POST'])
+def generate_role_image_route():
+    description = request.json.get('description')
+    return generate_role_image(description)
+
+# 创建角色并将描述和图片保存到数据库
+@app.route('/api/roles/create', methods=['POST'])
+def create_role_route():
+    description = request.json.get('description')
+    image_data = request.json.get('image_data')
+    return create_role(description, image_data)
 
 
 if __name__ == '__main__':
