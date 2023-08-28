@@ -250,8 +250,9 @@ def generate_and_stream_plot_image(content):
     yield "done"
 
 
-def generate_and_save_plot_image(description, album_id, user_id):
+def generate_and_save_plot_image(description, album_id=None, user_id=None):
     yield "Image generation started...\n"
+    print("Image generation started...")  # 打印日志
 
     stability_api = client.StabilityInference(
         key=api_key,
@@ -283,24 +284,27 @@ def generate_and_save_plot_image(description, album_id, user_id):
                     os.makedirs('out')
                 now = datetime.now()
                 datetime_string = now.strftime("%Y%m%d%H%M%S")
-                dir_url = 'out/' + datetime_string
+                dir_url = os.path.join('out', datetime_string)  # 使用 os.path.join 连接
                 os.makedirs(dir_url)
                 img_path = 'image.png'
                 full_img_path = os.path.join(dir_url, img_path)
                 img.save(full_img_path)
+
                 # 把图片存储到阿里云oss
                 generate_result = upload_pic(img_path, dir_url)
                 # 把图片存储到image表
                 with app.app_context():
                     image_details = add_image(image_url=generate_result, album_id=album_id, user_id=user_id,
-                              image_description=description, cost=0.2)
+                            image_description=description, cost=0.2)
 
                 # 合并 generate_result 和 image_details 到一个字典中并返回
                 combined_result = {
                     "generated_image_url": generate_result,
                     "image_details": image_details
                 }
+                print(f"Image generated, URL: {generate_result}")  # 打印日志
                 yield combined_result
 
+    print("Done")  # 打印日志
     yield "done"
 

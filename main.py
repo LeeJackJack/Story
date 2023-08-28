@@ -4,7 +4,7 @@ from generate.text_to_image import generate_and_stream, generate_and_stream_prot
 from generate.completions import get_lan_response
 from database.models import db, User
 import os
-from flask_cors import cross_origin ,  CORS
+from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
 from controllers.protagonist_controller import get_random_protagonist,get_preset_role, generate_role_image, create_role
@@ -133,17 +133,21 @@ def save_album():
     result = edit_album(album_id=album_id, content=data)
     return jsonify(result)
 
+
 # 获取预设角色描述及图片
 @app.route('/api/roles/preset/random', methods=['GET'])
 def get_preset_role_route():
-    preset = request.args.get('preset', type=bool, default=False)
+    preset_str = request.args.get('preset', default="false")
+    preset = preset_str.lower() != "false" # 如果 preset_str 不是 "false"，则 preset 为 True
     return get_preset_role(preset)
+
 
 # 根据编辑的描述生成图片
 @app.route('/api/roles/generate-image', methods=['POST'])
 def generate_role_image_route():
     description = request.json.get('description')
     return generate_role_image(description)
+
 
 # 创建角色并将描述和图片保存到数据库
 @app.route('/api/roles/create', methods=['POST'])

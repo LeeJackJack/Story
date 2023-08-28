@@ -2,7 +2,7 @@ from database.models import Protagonist, db
 from typing import Optional
 from sqlalchemy.sql.expression import func
 from flask import request
-from generate.text_to_image import generate_and_stream
+from generate.text_to_image import generate_and_stream,generate_and_save_plot_image
 
 
 
@@ -45,24 +45,24 @@ def get_random_protagonist():
 def get_preset_role(preset=False):
     # 从数据库中获取一个随机的预设角色
     protagonist = Protagonist.query.filter_by(preset=True).order_by(func.random()).first()
-
     # 如果没有找到预设角色，则返回错误信息
     if not protagonist:
         return {"error": "No preset role found"}, 404
 
     # 如果需要生成新的图像，则调用图像生成函数
     if not preset:
-        image_data_generator = generate_and_stream(protagonist.image_description)
-        next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
-        next(image_data_generator) # 跳过第二个yield，例如"Image generated successfully! URL: ..."
-        next(image_data_generator) # 跳过第三个yield，例如"Upscale Image generated successfully! ..."
+        print("运行获取图片")
+        image_data_generator = generate_and_save_plot_image(protagonist.image_description, None, None) # 假设 album_id 和 user_id 为空
 
-        # 获取第四个yield的值，即图像的URL列表
-        image_data_line = next(image_data_generator) 
-        image_data = image_data_line.split("FI-URL: ")[1].strip() if "FI-URL:" in image_data_line else None
+        next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
+
+        # 获取第二个yield的值，即包含图像URL和图像详细信息的字典
+        image_data_result = next(image_data_generator)
+        image_data = image_data_result.get("generated_image_url", None) # 提取图像URL
 
         if not image_data:
             return {"error": "Image generation failed"}, 500
+
 
     else:
         image_data = protagonist.image
