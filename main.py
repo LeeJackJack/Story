@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
 from dotenv import load_dotenv
-from generate.text_to_image import generate_and_stream, generate_and_stream_protagonist, generate_and_stream_plot_image, generate_and_save_plot_image
+from generate.text_to_image import generate_and_stream, generate_and_stream_plot_image, generate_and_save_plot_image
 from generate.completions import get_lan_response
-from database.models import db, User
+from database.models import db
 import os
 from flask_cors import cross_origin, CORS
-from controllers.user_controller import add_user
-from tools.ali_oss import upload_pic
-from controllers.protagonist_controller import get_random_protagonist,get_preset_role, generate_role_image, create_role
+from controllers.protagonist_controller import get_preset_role, generate_role_image, create_role, get_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
@@ -47,47 +45,6 @@ def generate_gpt():
     return jsonify({"response": response})
 
 
-@app.route('/test', methods=['POST'])
-def get_account():
-    print('test')
-
-
-@app.route('/uploadImg', methods=['GET'])
-def upload_img():
-    return upload_pic('1', '2')
-
-
-# 测试数据连接
-@app.route('/getUser')
-def get_user():
-    return add_user()
-
-
-@app.route('/getProtagonist')
-def get_protagonist():
-    protagonist = get_random_protagonist()
-    if protagonist:
-        return jsonify(protagonist)
-    else:
-        return jsonify({"error": "No protagonist found"}), 404
-
-
-@app.route('/createProtagonistImage', methods=['POST'])
-def create_protagonist_image():
-    prompt = request.json.get('prompt')
-    protagonist_id = request.json.get('protagonist_id')
-    return Response(stream_with_context(generate_and_stream_protagonist(prompt, protagonist_id)), content_type='text/plain')
-
-
-@app.route('/createProtagonist')
-def create_protagonist():
-    protagonist = get_random_protagonist()
-    if protagonist:
-        return jsonify(protagonist)
-    else:
-        return jsonify({"error": "No protagonist found"}), 404
-
-
 @app.route('/getPlot', methods=['GET'])
 def get_story_plot():
     chapter = int(request.args.get('chapter_next'))
@@ -111,6 +68,14 @@ def get_album_route():
     # 获取请求中的 'id' 参数
     album_id = request.args.get('album_id', type=int)
     result = get_album(album_id=album_id)
+    return jsonify(result)
+
+
+@app.route('/getProtagonist', methods=['GET'])
+def get_protagonist_data():
+    # 获取请求中的 'id' 参数
+    protagonist_id = request.args.get('protagonist_id', type=int)
+    result = get_protagonist(id=protagonist_id)
     return jsonify(result)
 
 
@@ -138,7 +103,7 @@ def save_album():
 @app.route('/api/roles/preset/random', methods=['GET'])
 def get_preset_role_route():
     preset_str = request.args.get('preset', default="false")
-    preset = preset_str.lower() != "false" # 如果 preset_str 不是 "false"，则 preset 为 True
+    preset = preset_str.lower() != "false"  # 如果 preset_str 不是 "false"，则 preset 为 True
     return get_preset_role(preset)
 
 

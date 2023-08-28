@@ -15,9 +15,6 @@ def get_album(album_id: int) -> dict:
     if album_id:
         album_query = album_query.filter_by(id=album_id, valid='1')
 
-    if album_id:
-        album_query = album_query.filter_by(id=album_id, valid='1')
-
     album = album_query.first()
 
     # 根据查询结果返回相应的值

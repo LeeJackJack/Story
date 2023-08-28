@@ -59,6 +59,7 @@ class StoryPlot(db.Model):
     valid = db.Column(db.Boolean, default=True)
     default_image = db.Column(db.Text, nullable=False)
 
+
 # 主人翁（主角）表
 class Protagonist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,8 +71,9 @@ class Protagonist(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     valid = db.Column(db.Boolean, default=True)
     image_description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(255), nullable=False)# 图片的URL
+    image = db.Column(db.String(255), nullable=False)  # 图片的URL
     preset = db.Column(db.Boolean, default=False)  # 字段用于区分是否为预设角色
+    protagonist_image = db.relationship('ProtagonistImage', backref='protagonist_image', lazy=True)
 
 
 # 用户角色关系表：记录哪些用户使用了哪些角色
