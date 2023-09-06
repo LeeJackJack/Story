@@ -1,18 +1,24 @@
+import json
+
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
 from dotenv import load_dotenv
-from generate.text_to_image import generate_and_stream, generate_and_stream_protagonist, generate_and_stream_plot_image, generate_and_save_plot_image
+from generate.text_to_image import generate_and_stream, generate_and_stream_plot_image, generate_and_save_plot_image, \
+    test_generate_and_stream
 from generate.completions import get_lan_response
-from database.models import db, User
+from database.models import db
 import os
 from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
-from controllers.protagonist_controller import get_random_protagonist,get_preset_role, generate_role_image
+from controllers.protagonist_controller import get_random_protagonist,get_preset_role, generate_role_image,get_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
+from controllers.game_controller import get_game
+from controllers.image_controller import add_plot_image
 from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
+from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -36,57 +42,16 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/generateImg', methods=['POST'])
+@app.route('/generateImg', methods=['GET'])
 def generate_img():
-    prompt = request.json.get('prompt')
-    return Response(stream_with_context(generate_and_stream(prompt)), content_type='text/plain')
+    # prompt = request.json.get('prompt')
+    return Response(stream_with_context(test_generate_and_stream()), content_type='text/plain')
 
 
 @app.route('/generateGpt', methods=['GET'])
 def generate_gpt():
     response = get_lan_response()
     return jsonify({"response": response})
-
-
-@app.route('/test', methods=['POST'])
-def get_account():
-    print('test')
-
-
-@app.route('/uploadImg', methods=['GET'])
-def upload_img():
-    return upload_pic('1', '2')
-
-
-# 测试数据连接
-@app.route('/getUser')
-def get_user():
-    return add_user()
-
-
-@app.route('/getProtagonist')
-def get_protagonist():
-    protagonist = get_random_protagonist()
-    if protagonist:
-        return jsonify(protagonist)
-    else:
-        return jsonify({"error": "No protagonist found"}), 404
-
-
-@app.route('/createProtagonistImage', methods=['POST'])
-def create_protagonist_image():
-    prompt = request.json.get('prompt')
-    protagonist_id = request.json.get('protagonist_id')
-    return Response(stream_with_context(generate_and_stream_protagonist(prompt, protagonist_id)), content_type='text/plain')
-
-
-@app.route('/createProtagonist')
-def create_protagonist():
-    protagonist = get_random_protagonist()
-    if protagonist:
-        return jsonify(protagonist)
-    else:
-        return jsonify({"error": "No protagonist found"}), 404
 
 
 @app.route('/getPlot', methods=['GET'])
@@ -115,6 +80,14 @@ def get_album_route():
     return jsonify(result)
 
 
+@app.route('/getProtagonist', methods=['GET'])
+def get_protagonist_data():
+    # 获取请求中的 'id' 参数
+    protagonist_id = request.args.get('protagonist_id', type=int)
+    result = get_protagonist(id=protagonist_id)
+    return jsonify(result)
+
+
 @app.route('/changeImage', methods=['GET'])
 def change_plot_image():
     description = request.args.get('description')
@@ -134,11 +107,12 @@ def save_album():
     result = edit_album(album_id=album_id, content=data)
     return jsonify(result)
 
+
 # 获取预设角色描述及图片
 @app.route('/api/roles/preset/random', methods=['GET'])
 def get_preset_role_route():
     preset_str = request.args.get('preset', default="false")
-    preset = preset_str.lower() != "false" # 如果 preset_str 不是 "false"，则 preset 为 True
+    preset = preset_str.lower() != "false"  # 如果 preset_str 不是 "false"，则 preset 为 True
     return get_preset_role(preset)
 
 # 创建角色（Protagonist）和绘本（Album）并返回相关数据。
@@ -168,6 +142,49 @@ def generate_role_image_route():
     description = request.json.get('description')
     return generate_role_image(description)
 
+
+
+# 20230901 新版本新增接口 ----------------------------------------------------------------------------------------
+@app.route('/getGameData', methods=['GET'])
+def get_game_data():
+    game_id = int(request.args.get('id'))
+    result = get_game(game_id)
+    return jsonify(result)
+
+
+@app.route('/getRandomPlot', methods=['GET'])
+def refresh_plot():
+    game_id = int(request.args.get('id'))
+    result = get_random_plot(game_id)
+    return jsonify(result)
+
+
+@app.route('/submitAnswer', methods=['GET'])
+def submit_answer():
+    choice = request.args.get('choice')
+    game_id = int(request.args.get('id'))
+    result = submit_plot_choice(game_id, choice)
+    print(result)
+    return jsonify(result)
+
+
+@app.route('/createPlotImage', methods=['GET'])
+def create_plot_image():
+    content = request.args.get('content')
+    game_id = int(request.args.get('game_id'))
+    user_id = int(request.args.get('user_id'))
+    prompt = create_img_prompt(content)
+
+    if prompt:
+        generator = generate_and_stream_plot_image(prompt)
+        next(generator)
+        generated_image_url = next(generator)
+
+        # 保存图片数据
+        result = add_plot_image(image_url=generated_image_url, plot_description=json.loads(content)['content'],
+                                game_id=game_id, user_id=user_id, image_description=prompt)
+        print(result)
+        return jsonify(result)
 
 
 if __name__ == '__main__':

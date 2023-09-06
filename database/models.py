@@ -59,6 +59,7 @@ class StoryPlot(db.Model):
     valid = db.Column(db.Boolean, default=True)
     default_image = db.Column(db.Text, nullable=False)
 
+
 # 主人翁（主角）表
 class Protagonist(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -70,8 +71,9 @@ class Protagonist(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     valid = db.Column(db.Boolean, default=True)
     image_description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(255), nullable=False)# 图片的URL
+    image = db.Column(db.String(255), nullable=False)  # 图片的URL
     preset = db.Column(db.Boolean, default=False)  # 字段用于区分是否为预设角色
+    protagonist_image = db.relationship('ProtagonistImage', backref='protagonist_image', lazy=True)
 
 
 # 图片表
@@ -95,12 +97,14 @@ class ProtagonistImage(db.Model):
 class Image(db.Model):
     # 主键
     id = db.Column(db.Integer, primary_key=True)
+    # 剧情描述
+    plot_description = db.Column(db.Text, nullable=True)
     # 图片描述
-    image_description = db.Column(db.String(255), nullable=True)
+    image_description = db.Column(db.Text, nullable=True)
     # 图片地址
     image_url = db.Column(db.Text, nullable=False)
     # 所属画册的外键
-    album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'), nullable=False)
     # 所属用户的外键
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # 消费金额 (假设金额是小数形式)
@@ -140,3 +144,19 @@ class Transaction(db.Model):
 class UserRoleRelation(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True) # 用户ID（外键，指向用户表）
     role_id = db.Column(db.Integer, db.ForeignKey('protagonist.id'), primary_key=True) # 角色ID（外键，指向主人翁表）
+
+# 游戏表
+class Game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 外键指向用户表的id
+    protagonist_id = db.Column(db.Integer, db.ForeignKey('protagonist.id'), nullable=False)  # 外键指向主角表的id
+    theme_id = db.Column(db.Integer, db.ForeignKey('album_theme.id'), nullable=False)  # 外键指向主题表的id
+    content = db.Column(db.Text)  # 使用文本字段来存储序列化后的整数数组
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    valid = db.Column(db.Boolean, default=True)
+    if_finish = db.Column(db.Boolean, default=False)
+    prompt_history = db.Column(db.Text)
+
+
+

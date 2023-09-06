@@ -23,13 +23,61 @@ api_key = os.environ['STABILITY_KEY']
 
 # sd参数
 random_seed = random.randint(100_000_000, 999_999_999)
-steps = 10
+steps = 30
 cfg_scale = 8.0
 width = int(eval(os.environ['IMAGE_WIDTH']))
 height = int(eval(os.environ['IMAGE_HEIGHT']))
 samples = 3
 sampler = generation.SAMPLER_K_DPMPP_2M
-style_preset = 'anime'
+style_preset = 'pixel-art'
+
+
+def test_generate_and_stream():
+    yield "Image generation started...\n"
+
+    stability_api = client.StabilityInference(
+        key=api_key,
+        verbose=True,
+        engine=engine_id,
+    )
+
+    # prompt = request.json.get('prompt')
+    prompt = "a young hero, brandishing a sword and shield, stands before a massive dragon's lair, determined to rescue the captured Snow White. The scene is filled with an eerie atmosphere, surrounded by the darkness of the lair and the light of the hero's determination.,master piece,cg,4k,best quality,"
+    print(prompt)
+
+    answers = stability_api.generate(
+        # prompt=prompt,
+        prompt=prompt,
+        seed=random_seed,
+        steps=steps,
+        cfg_scale=cfg_scale,
+        width=width,
+        height=height,
+        samples=1,
+        sampler=sampler,
+        style_preset=style_preset,
+    )
+
+    for resp in answers:
+        for artifact in resp.artifacts:
+            if artifact.finish_reason == generation.FILTER:
+                warnings.warn("Your request activated the API's safety filters and could not be processed.")
+            if artifact.type == generation.ARTIFACT_IMAGE:
+                img = Image.open(io.BytesIO(artifact.binary))
+                if not os.path.exists('out'):
+                    os.makedirs('out')
+                now = datetime.now()
+                datetime_string = now.strftime("%Y%m%d%H%M%S")
+                dir_url = 'out/' + datetime_string
+                os.makedirs(dir_url)
+                img_path = 'image.png'
+                full_img_path = os.path.join(dir_url, img_path)
+                img.save(full_img_path)
+                generate_result = upload_pic(img_path, dir_url)
+
+                yield f"Upscale Image generated successfully! FI-URL: {generate_result}\n"
+
+    yield "done"
 
 
 def generate_and_stream(prompt):
@@ -41,8 +89,13 @@ def generate_and_stream(prompt):
         engine=engine_id,
     )
 
-    prompt = request.json.get('prompt')
-    # prompt = 'baby elephant,cute,smile,lovely,in the middle,small,walking,'
+    # prompt = request.json.get('prompt')
+    prompt = "Hogwarts School of Witchcraft and Wizardry, a magical school with towering castles and buildings " \
+             "intertwined, surrounded by a mysterious atmosphere. A new student stands beneath a castle, holding " \
+             "a mysterious letter that contains a clue to the Holy Grail. The letters on the letter look like magical " \
+             "runes, evoking a sense of adventure. The overcast sky surrounding the scene adds to the dark and mysterious " \
+             "ambiance, reflecting the protagonist's curiosity and determination. The scene hides countless secrets that " \
+             "await brave explorers to uncover."
     print(prompt)
 
     answers = stability_api.generate(

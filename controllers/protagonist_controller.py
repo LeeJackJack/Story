@@ -37,8 +37,32 @@ def add_protagonist(user_id, description, name, race, feature, image, preset, im
 
 
 
-def get_protagonist():
-    return ''
+def get_protagonist(id: int) -> dict:
+
+    protagonist_query = Protagonist.query
+
+    protagonist = protagonist_query.filter_by(id=id, valid='1')
+
+    image = protagonist.protagonist_image
+
+    protagonist = protagonist_query.first()
+
+    # 根据查询结果返回相应的值
+    if protagonist:
+        return {
+            "id": protagonist_query.id,
+            "description": protagonist_query.description,
+            "name": protagonist_query.name,
+            "race": protagonist_query.race,
+            "feature": protagonist_query.feature,
+            "user_edit":protagonist_query.user_edit,
+            "created_at": protagonist_query.created_at,
+            "updated_at": protagonist_query.updated_at,
+            "valid": protagonist_query.valid,
+            "image": image
+        }
+    else:
+        return {}
 
 
 def edit_protagonist():
@@ -89,7 +113,6 @@ def get_preset_role(preset=False):
 
         if not image_data:
             return {"error": "Image generation failed"}, 500
-
 
     else:
         image_data = protagonist.image
