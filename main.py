@@ -1,6 +1,9 @@
+import json
+
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
 from dotenv import load_dotenv
-from generate.text_to_image import generate_and_stream, generate_and_stream_plot_image, generate_and_save_plot_image
+from generate.text_to_image import generate_and_stream, generate_and_stream_plot_image, generate_and_save_plot_image, \
+    test_generate_and_stream
 from generate.completions import get_lan_response
 from database.models import db
 import os
@@ -9,7 +12,10 @@ from controllers.protagonist_controller import get_preset_role, generate_role_im
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
+from controllers.game_controller import get_game
+from controllers.image_controller import add_plot_image
 from app_instance import app
+from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -33,10 +39,10 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/generateImg', methods=['POST'])
+@app.route('/generateImg', methods=['GET'])
 def generate_img():
-    prompt = request.json.get('prompt')
-    return Response(stream_with_context(generate_and_stream(prompt)), content_type='text/plain')
+    # prompt = request.json.get('prompt')
+    return Response(stream_with_context(test_generate_and_stream()), content_type='text/plain')
 
 
 @app.route('/generateGpt', methods=['GET'])
@@ -122,5 +128,49 @@ def create_role_route():
     return create_role(description, image_data)
 
 
+# 20230901 新版本新增接口 ----------------------------------------------------------------------------------------
+@app.route('/getGameData', methods=['GET'])
+def get_game_data():
+    game_id = int(request.args.get('id'))
+    result = get_game(game_id)
+    return jsonify(result)
+
+
+@app.route('/getRandomPlot', methods=['GET'])
+def refresh_plot():
+    game_id = int(request.args.get('id'))
+    result = get_random_plot(game_id)
+    return jsonify(result)
+
+
+@app.route('/submitAnswer', methods=['GET'])
+def submit_answer():
+    choice = request.args.get('choice')
+    game_id = int(request.args.get('id'))
+    result = submit_plot_choice(game_id, choice)
+    print(result)
+    return jsonify(result)
+
+
+@app.route('/createPlotImage', methods=['GET'])
+def create_plot_image():
+    content = request.args.get('content')
+    game_id = int(request.args.get('game_id'))
+    user_id = int(request.args.get('user_id'))
+    prompt = create_img_prompt(content)
+
+    if prompt:
+        generator = generate_and_stream_plot_image(prompt)
+        next(generator)
+        generated_image_url = next(generator)
+
+        # 保存图片数据
+        result = add_plot_image(image_url=generated_image_url, plot_description=json.loads(content)['content'],
+                                game_id=game_id, user_id=user_id, image_description=prompt)
+        print(result)
+        return jsonify(result)
+
+
 if __name__ == '__main__':
     app.run()
+
