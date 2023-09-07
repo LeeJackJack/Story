@@ -13,9 +13,10 @@ from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
 from controllers.game_controller import get_game
-from controllers.image_controller import add_plot_image
+from controllers.image_controller import add_plot_image, get_image, edit_image
 from app_instance import app
-from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt
+from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
+    create_plot
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -54,7 +55,7 @@ def generate_gpt():
 @app.route('/getPlot', methods=['GET'])
 def get_story_plot():
     chapter = int(request.args.get('chapter_next'))
-    print(chapter)
+    # print(chapter)
     theme_id = int(request.args.get('theme_id'))
     plot = get_random_story_plot(chapter, theme_id)
     return jsonify(plot)
@@ -148,7 +149,7 @@ def submit_answer():
     choice = request.args.get('choice')
     game_id = int(request.args.get('id'))
     result = submit_plot_choice(game_id, choice)
-    print(result)
+    # print(result)
     return jsonify(result)
 
 
@@ -167,8 +168,47 @@ def create_plot_image():
         # 保存图片数据
         result = add_plot_image(image_url=generated_image_url, plot_description=json.loads(content)['content'],
                                 game_id=game_id, user_id=user_id, image_description=prompt)
-        print(result)
+        # print(result)
         return jsonify(result)
+
+
+@app.route('/refreshPlotImage', methods=['GET'])
+def refresh_plot_image():
+    content = request.args.get('content')
+    image_id = int(request.args.get('image_id'))
+    prompt = create_img_prompt(content)
+
+    # 获取图像内容
+    image = get_image(image_id=image_id)
+
+    if prompt:
+        generator = generate_and_stream_plot_image(prompt)
+        next(generator)
+        generated_image_url = next(generator)
+
+        # 保存图片数据
+        result = add_plot_image(image_url=generated_image_url, plot_description=image['plot_description'],
+                                game_id=image['game_id'], user_id=image['user_id'], image_description=prompt)
+        # print(result)
+        return jsonify(result)
+
+
+@app.route('/confirmChosenImage', methods=['GET'])
+def confirm_chosen_image():
+    image_id = int(request.args.get('image_id'))
+    # 修改图像为已选择
+    image = edit_image(image_id=image_id)
+    return jsonify(image)
+
+
+@app.route('/createChoice', methods=['GET'])
+def create_plot_content():
+    choice = request.args.get('choice')
+    content = request.args.get('content')
+    game_id = int(request.args.get('game_id'))
+    result = create_plot(content, choice, game_id)
+    # print(result)
+    return jsonify(result)
 
 
 if __name__ == '__main__':
