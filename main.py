@@ -8,15 +8,17 @@ from generate.completions import get_lan_response
 from database.models import db
 import os
 from flask_cors import cross_origin, CORS
-from controllers.protagonist_controller import get_preset_role, generate_role_image, create_role, get_protagonist
+from controllers.user_controller import add_user
+from tools.ali_oss import upload_pic
+from controllers.protagonist_controller import get_random_protagonist, get_preset_role, generate_role_image, get_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
 from controllers.game_controller import get_game
 from controllers.image_controller import add_plot_image, get_image, edit_image
 from app_instance import app
-from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
-    create_plot
+from controllers.pro_and_alb_controller import create_pro_and_alb
+from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, create_plot
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -113,6 +115,26 @@ def get_preset_role_route():
     preset = preset_str.lower() != "false"  # 如果 preset_str 不是 "false"，则 preset 为 True
     return get_preset_role(preset)
 
+# 创建角色（Protagonist）和绘本（Album）并返回相关数据。
+# 创建角色并将描述和图片保存到数据库
+@app.route('/createProAndAlb', methods=['POST'])  # 使用 POST 方法，因为我们要创建新资源。
+def create_pro_and_alb_route():
+    data = request.json
+    user_id = int(data.get('user_id'))
+    description = data.get('description')
+    name = data.get('name')
+    race = data.get('race')
+    feature = data.get('feature')
+    image = data.get('image')
+    preset = data.get('preset', False)
+    image_description = data.get('image_description')  # 新添加的字段
+    theme_id = int(data.get('theme_id'))  # 新添加的字段
+    album_name = data.get('album_name')  # 新添加的字段
+    content = data.get('content')  # 新添加的字段
+
+    result = create_pro_and_alb(user_id, description, name, race, feature, image, preset, image_description, theme_id, album_name, content)
+    return jsonify(result)
+
 
 # 根据编辑的描述生成图片
 @app.route('/api/roles/generate-image', methods=['POST'])
@@ -120,13 +142,6 @@ def generate_role_image_route():
     description = request.json.get('description')
     return generate_role_image(description)
 
-
-# 创建角色并将描述和图片保存到数据库
-@app.route('/api/roles/create', methods=['POST'])
-def create_role_route():
-    description = request.json.get('description')
-    image_data = request.json.get('image_data')
-    return create_role(description, image_data)
 
 
 # 20230901 新版本新增接口 ----------------------------------------------------------------------------------------

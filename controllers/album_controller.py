@@ -5,8 +5,45 @@ from flask import jsonify
 import json
 
 
-def add_album():
-    return ""
+def add_album(user_id: int, protagonist_id: int, theme_id: Optional[int] = None,
+              album_name: Optional[str] = None, content: Optional[str] = None) -> int:
+    """
+    添加新的画册。
+
+    参数:
+    - user_id: 用户ID
+    - protagonist_id: 主角ID
+    - theme_id: 画册主题ID（可选）
+    - album_name: 画册名称（可选）
+    - content: 画册内容（可选）
+
+    返回:
+    - 新画册的ID
+    """
+
+    # 创建新画册对象
+    new_album = Album(
+        user_id=user_id,
+        protagonist_id=protagonist_id,
+        theme_id=theme_id if theme_id else None,
+        album_name=album_name if album_name else '默认画册名',
+        content=json.dumps([content]) if content else json.dumps([]),
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow(),
+        valid=True
+    )
+
+    # 将新对象添加到数据库会话
+    db.session.add(new_album)
+
+    # 提交数据库会话
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        raise e
+
+    return new_album.id
 
 
 def get_album(album_id: int) -> dict:

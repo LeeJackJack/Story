@@ -1,12 +1,40 @@
-from database.models import Protagonist, db
+from database.models import Protagonist, UserRoleRelation, db
 from typing import Optional
 from sqlalchemy.sql.expression import func
 from flask import request
 from generate.text_to_image import generate_and_stream,generate_and_save_plot_image
+from datetime import datetime
 
 
-def add_protagonist():
-    return {}
+
+# 创建角色
+def add_protagonist(user_id, description, name, race, feature, image, preset, image_description=None):
+    new_protagonist = Protagonist(
+        description=description,
+        name=name,
+        race=race,
+        feature=feature,
+        image=image,
+        preset=preset,
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow(),
+        valid=True,
+        image_description=image_description 
+    )
+    db.session.add(new_protagonist)
+    db.session.flush()  # 使得新的 Protagonist 对象的 ID 可用
+    
+    # 创建用户和角色之间的关联
+    new_relation = UserRoleRelation(
+        user_id=user_id,
+        role_id=new_protagonist.id
+    )
+    db.session.add(new_relation)
+    
+    db.session.commit()
+    
+    return new_protagonist.id
+
 
 
 def get_protagonist(id: int) -> dict:
@@ -72,6 +100,7 @@ def get_preset_role(preset=False):
         return {"error": "No preset role found"}, 404
 
     # 如果需要生成新的图像，则调用图像生成函数
+    print("准备运行获取图片")
     if not preset:
         print("运行获取图片")
         image_data_generator = generate_and_save_plot_image(protagonist.image_description, None, None) # 假设 album_id 和 user_id 为空
@@ -98,7 +127,7 @@ def get_preset_role(preset=False):
         "updated_at": protagonist.updated_at,
         "valid": protagonist.valid,
         "image_description": protagonist.image_description,
-        "image": image_data
+        "image": image_data # 提取图像URL
     }
 
 # 根据编辑的描述生成图片
@@ -106,7 +135,3 @@ def generate_role_image(description):
     # 在此处实现您的逻辑
     return ...
 
-# 创建角色
-def create_role(description, image_data):
-    # 在此处实现您的逻辑
-    return ...
