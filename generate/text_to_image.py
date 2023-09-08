@@ -303,7 +303,7 @@ def generate_and_stream_plot_image(content):
     yield "done"
 
 
-def generate_and_save_plot_image(description, album_id=None, user_id=None):
+def generate_and_save_plot_image(description, user_id, protagonist_id=None ):
     yield "Image generation started...\n"
     print("Image generation started...")  # 打印日志
 
@@ -345,15 +345,20 @@ def generate_and_save_plot_image(description, album_id=None, user_id=None):
 
                 # 把图片存储到阿里云oss
                 generate_result = upload_pic(img_path, dir_url)
-                # 把图片存储到image表
+                # 把图片存储到protagonist_image表
                 with app.app_context():
-                    image_details = add_image(image_url=generate_result, album_id=album_id, user_id=user_id,
-                            image_description=description, cost=0.2)
+                    image_id = add_protagonist_image(
+                        image_url=generate_result,
+                        image_description=description,
+                        protagonist_id = protagonist_id,
+                        user_id=user_id
+                    )
+
 
                 # 合并 generate_result 和 image_details 到一个字典中并返回
                 combined_result = {
                     "generated_image_url": generate_result,
-                    "image_details": image_details
+                    "image_id": image_id
                 }
                 print(f"Image generated, URL: {generate_result}")  # 打印日志
                 yield combined_result
