@@ -10,7 +10,7 @@ import os
 from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user
 from tools.ali_oss import upload_pic
-from controllers.protagonist_controller import get_random_protagonist, get_preset_role, generate_role_image, get_protagonist
+from controllers.protagonist_controller import get_preset_role, generate_role_image,get_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
@@ -113,7 +113,8 @@ def save_album():
 def get_preset_role_route():
     preset_str = request.args.get('preset', default="false")
     preset = preset_str.lower() != "false"  # 如果 preset_str 不是 "false"，则 preset 为 True
-    return get_preset_role(preset)
+    user_id = request.args.get('user_id', type=int)  # 获取 user_id 参数
+    return get_preset_role(user_id,preset)
 
 # 创建角色（Protagonist）和绘本（Album）并返回相关数据。
 # 创建角色并将描述和图片保存到数据库
@@ -125,14 +126,13 @@ def create_pro_and_alb_route():
     name = data.get('name')
     race = data.get('race')
     feature = data.get('feature')
-    image = data.get('image')
     preset = data.get('preset', False)
-    image_description = data.get('image_description')  # 新添加的字段
-    theme_id = int(data.get('theme_id'))  # 新添加的字段
-    album_name = data.get('album_name')  # 新添加的字段
-    content = data.get('content')  # 新添加的字段
+    theme_id = int(data.get('theme_id'))  # 新添加的字段，用于绘本的主题ID
+    album_name = data.get('album_name')  # 新添加的字段，用于绘本名称
+    content = data.get('content')  # 新添加的字段，用于绘本内容
+    image_id = data.get('image_id', None)  # 新添加的字段，用于角色图片ID
 
-    result = create_pro_and_alb(user_id, description, name, race, feature, image, preset, image_description, theme_id, album_name, content)
+    result = create_pro_and_alb(user_id, description, name, race, feature, preset, theme_id, album_name, content, image_id)
     return jsonify(result)
 
 
@@ -167,7 +167,7 @@ def submit_answer():
     # print(result)
     return jsonify(result)
 
-
+#用户输入转图片创造
 @app.route('/createPlotImage', methods=['GET'])
 def create_plot_image():
     content = request.args.get('content')

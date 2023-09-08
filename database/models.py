@@ -6,6 +6,7 @@ db = SQLAlchemy()
 
 # 用户表
 class User(db.Model):
+    __tablename__ = 'user'
     # 主键
     id = db.Column(db.Integer, primary_key=True)
     # 姓名
@@ -60,38 +61,33 @@ class StoryPlot(db.Model):
     default_image = db.Column(db.Text, nullable=False)
 
 
-# 主人翁（主角）表
+# 主人翁（角色）表
 class Protagonist(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    description = db.Column(db.Text, nullable=False)
-    name = db.Column(db.String(80), nullable=False)
-    race = db.Column(db.String(80), nullable=False)
-    feature = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    valid = db.Column(db.Boolean, default=True)
-    image_description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(255), nullable=False)  # 图片的URL
-    preset = db.Column(db.Boolean, default=False)  # 字段用于区分是否为预设角色
-    protagonist_image = db.relationship('ProtagonistImage', backref='protagonist_image', lazy=True)
+    __tablename__ = 'protagonist'  # 表名
 
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # 主键，自增
+    description = db.Column(db.Text, nullable=False)  # 角色描述
+    name = db.Column(db.String(80), nullable=False)  # 角色名称
+    race = db.Column(db.String(80), nullable=True)  # 角色种族
+    feature = db.Column(db.String(255), nullable=True)  # 角色特点
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)  # 创建时间
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)  # 更新时间
+    valid = db.Column(db.Boolean, default=True)  # 是否有效
+    preset = db.Column(db.Boolean, default=False)  # 是否为预设角色
+    protagonist_images = db.relationship('ProtagonistImage', backref='protagonist', lazy=True)  # 与 ProtagonistImage 的关联关系
 
-# 图片表
+# 角色图片表
 class ProtagonistImage(db.Model):
-    # 主键
-    id = db.Column(db.Integer, primary_key=True)
-    # 图片地址
-    image_url = db.Column(db.String(255), nullable=False)
-    # 所属画册的外键
-    protagonist_id = db.Column(db.Integer, db.ForeignKey('protagonist.id'), nullable=False)
-    # 所属用户的外键
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # 创建时间
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # 更新时间
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    # 是否有效
-    valid = db.Column(db.Boolean, default=True)
+    __tablename__ = 'protagonist_image'  # 表名
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # 主键，自增
+    image_url = db.Column(db.String(255), nullable=False)  # 图片URL
+    image_description = db.Column(db.Text, nullable=False)  # 用于生成图片的描述
+    protagonist_id = db.Column(db.Integer, db.ForeignKey('protagonist.id'), nullable=True)  # 关联的主角ID
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # 创建该图像的用户ID
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)  # 创建时间
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)  # 更新时间
+    valid = db.Column(db.Boolean, default=True)  # 是否有效
 
 
 class Image(db.Model):

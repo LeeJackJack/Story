@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import jsonify
 import json
 
-
+# 新增绘本
 def add_album(user_id: int, protagonist_id: int, theme_id: Optional[int] = None,
               album_name: Optional[str] = None, content: Optional[str] = None) -> int:
     """
