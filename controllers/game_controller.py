@@ -1,6 +1,7 @@
 # game_controller.py
 from database.models import Game, db
 from typing import Optional, Dict, Any
+import json
 
 
 def add_game():
@@ -80,3 +81,37 @@ def edit_game(id: int,
 
 def del_game():
     return ''
+
+
+def reset_game_plot(game_id):
+    game_query = Game.query
+    if game_id:
+        game_query = game_query.filter_by(id=game_id, valid='1')
+
+    game = game_query.first()
+
+    # 根据查询结果返回相应的值
+    if game:
+        content_arr = json.loads(game.content)
+        prompt_history_arr = json.loads(game.prompt_history)
+        # print(content_arr)
+        # print(prompt_history_arr)
+        game.content = json.dumps([content_arr[0]], ensure_ascii=False)
+        game.prompt_history = json.dumps(prompt_history_arr[:2], ensure_ascii=False)
+
+        db.session.commit()
+
+        return {
+            "id": game.id,
+            "user_id": game.user_id,
+            "theme_id": game.theme_id,
+            "protagonist_id": game.protagonist_id,
+            "content": game.content,
+            "created_at": game.created_at,
+            "updated_at": game.updated_at,
+            "valid": game.valid,
+            "if_finish": game.if_finish,
+            "prompt_history": game.prompt_history,
+        }
+    else:
+        return {}

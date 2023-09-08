@@ -138,7 +138,7 @@ def submit_plot_choice(game_id, choice):
         'content': full_text
     }
     prompt.append(new_response)
-    print(full_text)
+    # print(full_text)
     content.append(json.loads(full_text))
     # 保存最新生成内容到game
     result = edit_game(id=game_id, prompt_history=json.dumps(prompt, ensure_ascii=False),
@@ -174,7 +174,7 @@ def create_img_prompt(content):
             print('Error or interrupted:', event.data)
         else:
             print('Unknown event:', event.data)
-    print(full_text)
+    # print(full_text)
     return full_text
 
 
@@ -185,6 +185,7 @@ def create_plot(content, choice, game_id):
                    {'round': '7', 'chapter': '结局逼近'}, {'round': '8', 'chapter': '最终结局'}]
     round_num = json.loads(content)['round']
     round_final = new_chapter[round_num]['round']
+    print(round_final)
     chapter_final = new_chapter[round_num]['chapter']
 
     game = get_game(id=game_id)

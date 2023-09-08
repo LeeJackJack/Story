@@ -14,7 +14,7 @@ from controllers.protagonist_controller import get_random_protagonist, get_prese
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
-from controllers.game_controller import get_game
+from controllers.game_controller import get_game, reset_game_plot
 from controllers.image_controller import add_plot_image, get_image, edit_image
 from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
@@ -223,6 +223,14 @@ def create_plot_content():
     game_id = int(request.args.get('game_id'))
     result = create_plot(content, choice, game_id)
     # print(result)
+    return jsonify(result)
+
+
+@app.route('/resetStory', methods=['GET'])
+def reset_game():
+    game_id = int(request.args.get('game_id'))
+    result = reset_game_plot(game_id)
+    print(result)
     return jsonify(result)
 
 
