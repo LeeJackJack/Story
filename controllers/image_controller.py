@@ -39,12 +39,66 @@ def add_image(image_url: str,
         raise e
 
 
-def get_image():
-    return ''
+def edit_image(image_id: int,
+               image_url: Optional[str] = None ,
+               plot_description: Optional[str] = None,
+               game_id: Optional[int] = None,
+               user_id: Optional[int] = None,
+               image_description: Optional[str] = None,
+               chosen: Optional[str] = None,
+               cost: Optional[float] = None,
+               valid: Optional[bool] = True) -> Dict[str, Any]:
+
+    image_query = Image.query
+    image = image_query.filter_by(id=image_id, valid='1').first()
+    image.chosen = '1'
+    db.session.commit()  # 提交更改
+
+    # 根据查询结果返回相应的值
+    if image:
+        return {
+            "id": image.id,
+            "image_url": image.image_url,
+            "plot_description": image.plot_description,
+            "game_id": image.game_id,
+            "user_id": image.user_id,
+            "image_description": image.image_description,
+            "cost": image.cost,
+            "valid": image.valid,
+            "chosen": image.chosen,
+        }
+    else:
+        return {}
 
 
-def edit_image():
-    return ''
+def get_image(image_id: int,
+              image_url: Optional[str] = None ,
+              plot_description: Optional[str] = None,
+              game_id: Optional[int] = None,
+              user_id: Optional[int] = None,
+              image_description: Optional[str] = None,
+              chosen: Optional[str] = None,
+              cost: Optional[float] = None,
+              valid: Optional[bool] = True) -> Dict[str, Any]:
+    image_query = Image.query
+
+    image = image_query.filter_by(id=image_id, valid='1').first()
+
+    # 根据查询结果返回相应的值
+    if image:
+        return {
+            "id": image.id,
+            "image_url": image.image_url,
+            "plot_description": image.plot_description,
+            "game_id": image.game_id,
+            "user_id": image.user_id,
+            "image_description": image.image_description,
+            "cost": image.cost,
+            "valid": image.valid,
+            "chosen": image.chosen,
+        }
+    else:
+        return {}
 
 
 def del_image():
@@ -56,6 +110,7 @@ def add_plot_image(image_url: str,
                    game_id: Optional[int] = None,
                    user_id: Optional[int] = None,
                    image_description: Optional[str] = None,
+                   chosen: Optional[str] = '0',
                    cost: Optional[float] = None,
                    valid: Optional[bool] = True) -> Dict[str, Any]:
 
@@ -65,7 +120,8 @@ def add_plot_image(image_url: str,
                       user_id=user_id,
                       plot_description=plot_description,
                       image_description=image_description,
-                      cost=cost)
+                      cost=cost,
+                      chosen='0')
 
     # 将实例添加到数据库会话
     db.session.add(new_image)
@@ -83,6 +139,7 @@ def add_plot_image(image_url: str,
             'user_id': new_image.user_id,
             'image_description': new_image.image_description,
             'cost': new_image.cost,
+            'chosen': '0',
             'valid': valid
         }
     except Exception as e:

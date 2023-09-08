@@ -111,6 +111,8 @@ class Image(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     # 是否有效
     valid = db.Column(db.Boolean, default=True)
+    # 是否被选中
+    chosen = db.Column(db.String(255), default='0')
 
 
 # 剧情图片描述表
