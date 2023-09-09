@@ -1,8 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-db = SQLAlchemy()
 
+db = SQLAlchemy()
 
 # 用户表
 class User(db.Model):
@@ -10,19 +10,36 @@ class User(db.Model):
     # 主键
     id = db.Column(db.Integer, primary_key=True)
     # 姓名
-    name = db.Column(db.String(80), nullable=False)
+    nick_name = db.Column(db.Text, default='微信用户')
     # 电话
-    phone = db.Column(db.String(20), unique=True, nullable=False)
+    phone = db.Column(db.String(20), unique=True, nullable=True)
+    # 微信id
+    open_id = db.Column(db.Text, nullable=True)
+    # 微信session
+    session_key = db.Column(db.Text, nullable=True)
+    # 微信code
+    code = db.Column(db.Text, nullable=True)
+    # 微信头像
+    avatar_url = db.Column(db.Text, nullable=True, default='https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132')
+    # 用户城市
+    city = db.Column(db.Text, nullable=True)
+    # 用户国家
+    country = db.Column(db.Text, nullable=True)
+    # 用户省分
+    province = db.Column(db.Text, nullable=True)
+    # 用户性别
+    gender = db.Column(db.String(64), nullable=True)
+    # 用户语言
+    language = db.Column(db.String(64), nullable=True)
     # 年龄
     age = db.Column(db.Integer, nullable=True)
     # 创建时间
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     # 更新时间
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    # token
-    token = db.Column(db.String(256), nullable=True)
     # 是否有效 (我假设valid是一个布尔字段，表示用户是否有效)
     valid = db.Column(db.Boolean, default=True)
+    token = db.Column(db.Text, nullable=True)
 
 
 # 画册表

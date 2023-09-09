@@ -1,7 +1,8 @@
 import json
 import zhipuai
 import os
-from controllers.game_controller import get_game, edit_game
+import controllers.game_controller as game_controller
+# from controllers.game_controller import get_game, edit_game
 from dotenv import load_dotenv
 import json
 
@@ -11,27 +12,27 @@ load_dotenv()  # 加载 .env 文件中的变量
 zhipuai.api_key = os.environ['QINGHUA_API_KEY']
 
 
-def init_game_plot():
+def init_game_plot(protagonist_name):
     response = zhipuai.model_api.sse_invoke(
         model="chatglm_pro",
-        prompt="1、 我希望你扮演一个基于文本的冒险游戏（ 游戏主题： 王子拯救白雪公主的故事， 主角： 勇者人杰）； "
-               "2、游戏总共8回合，你将回复故事情节内容描述及3个选项。您将回复故事情节内容的描述；"
-               "3、你需要首先给我第一个场景及情节描述，并给我提供3个选项；"
-               "4、如果我回复选项中的其中一个（选项序号），则继续生成下一回合内容；"
-               "5、如果我回复换“换一换”，则重新生成当前回合的故事情节内容描述及选项；"
-               "6、每个回合的故事情节必须控制在80字以内。故事需要在八个回合内结束；"
-               "7、故事的8个情节结构分别是故事的开端、情节推进、矛盾产生、关键决策、情节发展、高潮冲突、结局逼近、最终结局，"
-               "8个情节按此顺序逐层递进；8、你给我的情节需要有趣好玩，适合儿童阅读，前后逻辑有联系；"
-               "9、你返回给我的内容包含如下：1）round：是整数，从1开始递增，如果“换一换”则保持不变；"
-               "2）chapter：枚举值：分别是故事的开端、情节推进、矛盾产生、关键决策、情节发展、高潮冲突、结局逼近、最终结局；"
+        prompt=f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{protagonist_name}奇幻历险记，主角：{protagonist_name}）；"
+               "2、游戏总共 8 回合，你将回复故事情节内容描述及 3 个选项；"
+               "3、你需要首先给我第一个场景及情节描述，并给我提供 3 个选项；"
+               "4、如果我回复选项中的其中一个，则根据选项继续生成下一回合内容（round、chapter、content及choice改变，根据选项生成下一回合所需内容）；"
+               "5、如果我回复换“换一换”，则在当前回合重新生成故事情节内容描述及选项（round、chapter不变，重新生成content及choice内容）；"
+               "6、如果我回复“自定义”，则根据“自定义”的内容继续生成下一回合内容（round、chapter、content及choice改变，根据选项生成下一回合所需内容）；"
+               "7、每个回合的故事情节描述必须控制在 80 字以内。故事需要在第八回合结束（在round:8,chapter:最终结局时结束）；"
+               "8、故事的八个回合的情节结构分别是：故事的开端、情节推进、矛盾产生、关键决策、情节发展、高潮冲突、结局逼近、最终结局，八个情节按此顺序逐层递进，缺一不可；"
+               "9、你给我的故事情节描述需要有趣好玩，适合儿童阅读，前后逻辑有联系；"
+               "10、你返回给我的内容包含如下："
+               "1）round：是整数，从 1 开始递增，1代表第一回合，2代表第二回合，以此类推；如果回复“换一换”则保持不变（继续在当前回合）；"
+               "2）chapter：枚举值：故事的开端（round:1,chapter:故事的开端）、情节推进（round:2,chapter:情节推进）、矛盾产生（round:3,chapter:矛盾产生）、关键决策（（round:4,chapter:关键决策））、情节发展（（round:5,chapter:情节发展））、高潮冲突（round:6,chapter:高潮冲突）、结局逼近（round:7,chapter:解决逼近）、最终结局（round:8,chapter:最终结局）；"
                "3）content：具体的故事情节描述内容；"
-               "4）choice： 故事对应的3个选项，用a、b、c英文字母序号开头（故事的最后一个回合最后一话不提供选项选择）"
-               "10、返回的内容封装成json的格式，健值对参考上述序号9的内容（只需要json格式返回，其他格式内容不需要返回）"
-               "11、注意，请严格按照下面示例的格式，内容请按照上述1-10点要求创作，"
-               "示例：{\"round\":1,\"chapter\":\"故事的开端\",\"content\":\"你收到了霍格沃茨的入学通知书，"
-               "搭乘霍格沃茨特快列车来到了这所神秘的魔法学校。列车穿过山峦和森林，最后抵达了你的目的地。远远望去，"
-               "霍格沃茨魔法学校屹立在一座高高的山顶上，城堡式的建筑气势恢宏，令人叹为观止。你怀揣着激动的心情，跟随其他新生一起走下列车，"
-               "准备进入学校开始新的魔法生活。\",\"choice\":[\"a. 走进学校大门\",\"b. 先去参观大礼堂\",\"c. 沿着湖边小路走\"]}",
+               "4）choice：故事对应的 3 个选项，用 a、b、c 英文字母序号开头（故事的最后一个回合不提供选项选择）；"
+               "11、返回的内容输出成 json 的格式，健值对参考上述序号 10的内容（注意：你输出的内容只需要 json 格式返回，其他格式内容不需要返回）；"
+               "12、注意，请严格按照下面示例的格式，内容请按照上述 1-11 点要求创作，示例如下："
+               "{\"round\":1,\"chapter\":\"故事的开端\",\"content\":\"你收到了霍格沃茨的入学通知书，搭乘霍格沃茨特快列车来到了这所神秘的魔法学校。列车穿过山峦和森林，最后抵达了你的目的地。远远望去，霍格沃茨魔法学校屹立在一座高高的山顶上，城堡式的建筑气势恢宏，令人叹为观止。你怀揣着激动的心情，跟随其他新生一起走下列车，准备进入学校开始新的魔法生活。\",\"choice\":[\"a. 走进学校大门\",\"b. 先去参观大礼堂\",\"c. 沿着湖边小路走\"]}"
+               "13、输出之前，请仔细检查一次是否均满足上述所说的 12 条规则再输出。",
         temperature=1,
         top_p=0.7,
         incremental=True
@@ -58,7 +59,7 @@ def init_game_plot():
 
 # 随机换一换剧情
 def get_random_plot(game_id):
-    game = get_game(id=game_id)
+    game = game_controller.get_game(id=game_id)
     content = json.loads(game['content'])
     # print(content[0])
     round_num = content[0]['round']
@@ -96,7 +97,7 @@ def get_random_plot(game_id):
     prompt.append(new_response)
     content[-1] = json.loads(full_text)
     # 保存最新生成内容到game
-    result = edit_game(id=game_id, prompt_history=json.dumps(prompt,ensure_ascii=False),
+    result = game_controller.edit_game(id=game_id, prompt_history=json.dumps(prompt,ensure_ascii=False),
                        content=json.dumps(content,ensure_ascii=False))
 
     return result
@@ -104,7 +105,7 @@ def get_random_plot(game_id):
 
 # 提交选项并更新剧情
 def submit_plot_choice(game_id, choice):
-    game = get_game(id=game_id)
+    game = game_controller.get_game(id=game_id)
     content = json.loads(game['content'])
     prompt = json.loads(game['prompt_history'])
     new_entry = {
@@ -141,7 +142,7 @@ def submit_plot_choice(game_id, choice):
     # print(full_text)
     content.append(json.loads(full_text))
     # 保存最新生成内容到game
-    result = edit_game(id=game_id, prompt_history=json.dumps(prompt, ensure_ascii=False),
+    result = game_controller.edit_game(id=game_id, prompt_history=json.dumps(prompt, ensure_ascii=False),
                        content=json.dumps(content, ensure_ascii=False))
 
     return result
@@ -188,7 +189,7 @@ def create_plot(content, choice, game_id):
     print(round_final)
     chapter_final = new_chapter[round_num]['chapter']
 
-    game = get_game(id=game_id)
+    game = game_controller.get_game(id=game_id)
     game_content = json.loads(game['content'])
     prompt = json.loads(game['prompt_history'])
     if round_num == 7:
@@ -230,7 +231,7 @@ def create_plot(content, choice, game_id):
     prompt.append(new_response)
     game_content.append(json.loads(full_text))
     # 保存最新生成内容到game
-    result = edit_game(id=game['id'], prompt_history=json.dumps(prompt, ensure_ascii=False),
+    result = game_controller.edit_game(id=game['id'], prompt_history=json.dumps(prompt, ensure_ascii=False),
                        content=json.dumps(game_content, ensure_ascii=False))
 
     return result

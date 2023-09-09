@@ -1,6 +1,6 @@
 import json
-
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
+import requests
 from dotenv import load_dotenv
 from generate.text_to_image import generate_and_stream, generate_and_stream_plot_image, generate_and_save_plot_image, \
     test_generate_and_stream
@@ -8,7 +8,7 @@ from generate.completions import get_lan_response
 from database.models import db
 import os
 from flask_cors import cross_origin, CORS
-from controllers.user_controller import add_user
+from controllers.user_controller import add_user, find_user_by_open_id, edit_user
 from tools.ali_oss import upload_pic
 from controllers.protagonist_controller import get_preset_role, generate_role_image,get_protagonist
 from controllers.story_plot_controller import get_random_story_plot
@@ -19,6 +19,7 @@ from controllers.image_controller import add_plot_image, get_image, edit_image
 from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
 from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, create_plot
+from flask_jwt_extended import JWTManager, create_access_token
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -35,6 +36,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+
+# JWT 配置
+app.config['JWT_SECRET_KEY'] = os.environ['JWT_SECRET_SECRET']  # JWT秘钥
+jwt = JWTManager(app)
 
 
 @app.route('/')
@@ -114,7 +119,8 @@ def get_preset_role_route():
     preset_str = request.args.get('preset', default="false")
     preset = preset_str.lower() != "false"  # 如果 preset_str 不是 "false"，则 preset 为 True
     user_id = request.args.get('user_id', type=int)  # 获取 user_id 参数
-    return get_preset_role(user_id,preset)
+    return get_preset_role(user_id=user_id, preset=preset)
+
 
 # 创建角色（Protagonist）和绘本（Album）并返回相关数据。
 # 创建角色并将描述和图片保存到数据库
@@ -141,7 +147,6 @@ def create_pro_and_alb_route():
 def generate_role_image_route():
     description = request.json.get('description')
     return generate_role_image(description)
-
 
 
 # 20230901 新版本新增接口 ----------------------------------------------------------------------------------------
@@ -232,6 +237,55 @@ def reset_game():
     result = reset_game_plot(game_id)
     print(result)
     return jsonify(result)
+
+
+# 获取微信用户登录信息
+@app.route('/wxLogin', methods=['GET'])
+def wx_login():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({"error": "Missing code"}), 400
+
+    # 与微信服务器交互，获取 openId 和 sessionKey
+    payload = {
+        'appid': os.environ['MINI_PROGRAM_APP_ID'],
+        'secret': os.environ['MINI_PROGRAM_APP_SECRET'],
+        'js_code': code,
+        'grant_type': 'authorization_code'
+    }
+    response = requests.get(os.environ['WX_LOGIN_URL'], params=payload)
+    data = response.json()
+
+    session_key = data['session_key']
+    openid = data['openid']
+    token = create_access_token(identity={'session_key': session_key, 'openid': openid})
+
+    # 先查找用户是否已存在
+    user = find_user_by_open_id(openid)
+    # 不存在则存储新用户
+    if not user:
+        user = add_user(open_id=openid, session_key=session_key, token=token)
+
+    return jsonify(user)
+
+
+# 更新微信用户登录信息
+@app.route('/wxLoginUpdate', methods=['GET'])
+def wx_login_update():
+    avatar_url = request.args.get('avatarUrl')
+    city = request.args.get('city')
+    country = request.args.get('country')
+    gender = request.args.get('gender')
+    language = request.args.get('language')
+    nick_name = request.args.get('nickName')
+    province = request.args.get('province')
+    user_id = request.args.get('user_id')
+
+    # 更新用户表信息
+    user = edit_user(user_id=user_id, avatar_url=avatar_url, city=city, country=country, gender=gender,
+                     language=language, nick_name=nick_name, province=province)
+
+    return jsonify(user)
 
 
 if __name__ == '__main__':

@@ -76,20 +76,18 @@ def edit_protagonist():
 def del_protagonist():
     return ''
 
+
 # 获取预设角色描述及图片
 def get_preset_role(user_id,preset=False):
     # 从数据库中获取一个随机的预设角色
     protagonist = Protagonist.query.filter_by(preset=True).order_by(func.random()).first()
     # 如果没有找到预设角色，则返回错误信息
     if not protagonist:
-        return {"error": "No preset role found"}, 404
+        return {"error": "No preset role found"}, 400
         # 从数据库中获取与该角色相关联的最新 image_id 和 image_description
 
-    related_image = ProtagonistImage.query.filter_by(
-        protagonist_id=protagonist.id
-    ).order_by(
-        ProtagonistImage.created_at.desc()
-    ).first()
+    related_image = ProtagonistImage.query.filter_by(protagonist_id=protagonist.id)\
+        .order_by(ProtagonistImage.created_at.desc()).first()
     if related_image:
         image_id = related_image.id
         image_description = related_image.image_description  
@@ -99,24 +97,23 @@ def get_preset_role(user_id,preset=False):
     if not preset:
         print("运行获取图片")
 
-        image_data_generator = generate_and_save_plot_image(image_description, user_id, None) # 假设 album_id 和 user_id 为空
-
-        next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
-
-        # 获取第二个yield的值，即包含图像URL和图像详细信息的字典
-        image_data_result = next(image_data_generator)
-        image_data = image_data_result.get("generated_image_url", None)  # 提取图像URL
-        image_id = image_data_result.get("image_id", None)  # 提取图像ID
-
-        if not image_data:
-            return {"error": "Image generation failed"}, 500
+        # image_data_generator = generate_and_save_plot_image(image_description, user_id, None) # 假设 album_id 和 user_id 为空
+        #
+        # next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
+        #
+        # # 获取第二个yield的值，即包含图像URL和图像详细信息的字典
+        # image_data_result = next(image_data_generator)
+        # image_data = image_data_result.get("generated_image_url", None)  # 提取图像URL
+        # image_id = image_data_result.get("image_id", None)  # 提取图像ID
+        #
+        # if not image_data:
+        #     return {"error": "Image generation failed"}, 500
     else:
         # 如果 preset 为 True, 直接使用之前获取到的 image_id 来获取 image_url
         # image_data = related_image.image_url
         # 测试时先固定一个id
         image_data = "https://gpt-story.oss-cn-guangzhou.aliyuncs.com/out/20230908101731/image.png"
         image_id = 217
-
 
     return {
         "id": protagonist.id,
@@ -128,8 +125,8 @@ def get_preset_role(user_id,preset=False):
         "updated_at": protagonist.updated_at,
         "valid": protagonist.valid,
         "image_description": image_description,
-        "image": image_data, # 提取角色图像URL
-        "image_id": image_id  # 提取角色图像ID
+        "image": "https://gpt-story.oss-cn-guangzhou.aliyuncs.com/out/20230908101731/image.png", # 提取角色图像URL
+        "image_id": 217  # 提取角色图像ID
     }
 
 # 根据编辑的描述生成图片
