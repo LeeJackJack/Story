@@ -53,7 +53,6 @@ def edit_image(image_id: int,
     image = image_query.filter_by(id=image_id, valid='1').first()
     image.chosen = '1'
     db.session.commit()  # 提交更改
-
     # 根据查询结果返回相应的值
     if image:
         return {

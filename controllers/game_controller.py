@@ -1,5 +1,5 @@
 # game_controller.py
-from database.models import Game, db, Protagonist
+from database.models import Game, db, Protagonist, AlbumTheme
 from typing import Optional, Dict, Any
 import json
 from datetime import datetime
@@ -7,19 +7,24 @@ from datetime import datetime
 import generate.qinghua_completions as gpt_completions
 
 
-def add_game(user_id, protagonist_id, theme_id=None,
+def add_game(user_id, protagonist_id, theme_id,
              content=None, prompt_history=None):
     # 获取主角信息
     protagonist_query = Protagonist.query
     protagonist_query = protagonist_query.filter_by(id=protagonist_id, valid='1')
     protagonist = protagonist_query.first()
 
+    # 获取故事主题信息
+    theme_query = AlbumTheme.query
+    theme_query = theme_query.filter_by(id=theme_id, valid='1')
+    theme = theme_query.first()
+
     gpt = gpt_completions.init_game_plot(protagonist.name)
-    print(gpt['add'])
+    # print(gpt['add'])
     new_content = json.loads(gpt['add'])
     new_prompt_history = [{
         'role': 'user',
-        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{protagonist.name}奇幻历险记，主角：{protagonist.name}）；"
+        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{theme.description}，主角：{protagonist.name}）；"
                    "2、游戏总共 8 回合，你将回复故事情节内容描述及 3 个选项；"
                    "3、你需要首先给我第一个场景及情节描述，并给我提供 3 个选项；"
                    "5、如果我回复“自定义”，则根据“自定义”的内容继续生成下一回合内容（round、chapter、content及choice改变，根据选项生成下一回合所需内容）；"

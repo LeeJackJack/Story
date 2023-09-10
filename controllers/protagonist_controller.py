@@ -9,7 +9,7 @@ from controllers.protagonist_image_controller import edit_protagonist_image
 
 # 创建角色
 def add_protagonist(user_id, description, name, race, feature, preset,image_id=None):
-    print(image_id)
+    # print(image_id)
     new_protagonist = Protagonist(
         description=description,
         name=name,
@@ -93,27 +93,26 @@ def get_preset_role(user_id,preset=False):
         image_description = related_image.image_description  
 
     # 如果需要生成新的图像，则调用图像生成函数
-    print("准备运行获取图片")
-    if not preset:
-        print("运行获取图片")
-
-        # image_data_generator = generate_and_save_plot_image(image_description, user_id, None) # 假设 album_id 和 user_id 为空
-        #
-        # next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
-        #
-        # # 获取第二个yield的值，即包含图像URL和图像详细信息的字典
-        # image_data_result = next(image_data_generator)
-        # image_data = image_data_result.get("generated_image_url", None)  # 提取图像URL
-        # image_id = image_data_result.get("image_id", None)  # 提取图像ID
-        #
-        # if not image_data:
-        #     return {"error": "Image generation failed"}, 500
-    else:
-        # 如果 preset 为 True, 直接使用之前获取到的 image_id 来获取 image_url
-        # image_data = related_image.image_url
-        # 测试时先固定一个id
-        image_data = "https://gpt-story.oss-cn-guangzhou.aliyuncs.com/out/20230908101731/image.png"
-        image_id = 217
+    # print("准备运行获取图片")
+    # if not preset:
+    #     print("运行获取图片")
+    #     # image_data_generator = generate_and_save_plot_image(image_description, user_id, None) # 假设 album_id 和 user_id 为空
+    #     #
+    #     # next(image_data_generator) # 跳过第一个yield，例如"Image generation started..."
+    #     #
+    #     # # 获取第二个yield的值，即包含图像URL和图像详细信息的字典
+    #     # image_data_result = next(image_data_generator)
+    #     # image_data = image_data_result.get("generated_image_url", None)  # 提取图像URL
+    #     # image_id = image_data_result.get("image_id", None)  # 提取图像ID
+    #     #
+    #     # if not image_data:
+    #     #     return {"error": "Image generation failed"}, 500
+    # else:
+    #     # 如果 preset 为 True, 直接使用之前获取到的 image_id 来获取 image_url
+    #     # image_data = related_image.image_url
+    #     # 测试时先固定一个id
+    #     image_data = "https://gpt-story.oss-cn-guangzhou.aliyuncs.com/out/20230908101731/image.png"
+    #     image_id = 217
 
     return {
         "id": protagonist.id,

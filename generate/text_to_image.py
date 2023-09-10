@@ -43,7 +43,7 @@ def test_generate_and_stream():
 
     # prompt = request.json.get('prompt')
     prompt = "a young hero, brandishing a sword and shield, stands before a massive dragon's lair, determined to rescue the captured Snow White. The scene is filled with an eerie atmosphere, surrounded by the darkness of the lair and the light of the hero's determination.,master piece,cg,4k,best quality,"
-    print(prompt)
+    # print(prompt)
 
     answers = stability_api.generate(
         # prompt=prompt,
@@ -96,7 +96,7 @@ def generate_and_stream(prompt):
              "runes, evoking a sense of adventure. The overcast sky surrounding the scene adds to the dark and mysterious " \
              "ambiance, reflecting the protagonist's curiosity and determination. The scene hides countless secrets that " \
              "await brave explorers to uncover."
-    print(prompt)
+    # print(prompt)
 
     answers = stability_api.generate(
         # prompt=prompt,
@@ -150,7 +150,7 @@ def generate_and_stream(prompt):
                     # 把生成图片存储到数据库
                     add_image(image_url=final_url, description=prompt, user_id=1)
 
-                print(images)
+                # print(images)
                 yield f"Upscale Image generated successfully! FI-URL: {images}\n"
 
     yield "done"
@@ -198,7 +198,7 @@ def generate_and_stream_protagonist(prompt, protagonist_id):
                 generate_result = upload_pic(img_path, dir_url)
                 # 把生成图片存储到数据库
                 add_protagonist_image(image_url=generate_result, protagonist_id=protagonist_id, user_id=1)
-                print(generate_result)
+                # print(generate_result)
                 yield f"Upscale Image generated successfully! FI-URL: {generate_result}\n"
 
     yield "done"
@@ -251,7 +251,7 @@ def generate_and_stream_plot_four_image(content):
                 add_image(image_url=generate_result, description=prompt, user_id=1)
                 images.append(generate_result)
 
-                print(images)
+                # print(images)
                 yield f"Upscale Image generated successfully! FI-URL: {images}\n"
 
     yield "done"
@@ -305,7 +305,7 @@ def generate_and_stream_plot_image(content):
 
 def generate_and_save_plot_image(description, user_id, protagonist_id=None ):
     yield "Image generation started...\n"
-    print("Image generation started...")  # 打印日志
+    # print("Image generation started...")  # 打印日志
 
     stability_api = client.StabilityInference(
         key=api_key,
@@ -360,9 +360,9 @@ def generate_and_save_plot_image(description, user_id, protagonist_id=None ):
                     "generated_image_url": generate_result,
                     "image_id": image_id
                 }
-                print(f"Image generated, URL: {generate_result}")  # 打印日志
+                # print(f"Image generated, URL: {generate_result}")  # 打印日志
                 yield combined_result
 
-    print("Done")  # 打印日志
+    # print("Done")  # 打印日志
     yield "done"
 

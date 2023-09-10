@@ -16,6 +16,7 @@ from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
 from controllers.game_controller import get_game, reset_game_plot
 from controllers.image_controller import add_plot_image, get_image, edit_image
+from controllers.theme_controller import get_theme_list
 from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
 from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, create_plot
@@ -235,7 +236,7 @@ def create_plot_content():
 def reset_game():
     game_id = int(request.args.get('game_id'))
     result = reset_game_plot(game_id)
-    print(result)
+    # print(result)
     return jsonify(result)
 
 
@@ -286,6 +287,14 @@ def wx_login_update():
                      language=language, nick_name=nick_name, province=province)
 
     return jsonify(user)
+
+
+# 获取故事主题信息
+@app.route('/getThemeData', methods=['GET'])
+def get_theme_data():
+    result = get_theme_list()
+    print(result)
+    return jsonify(result)
 
 
 if __name__ == '__main__':
