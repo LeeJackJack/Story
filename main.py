@@ -176,6 +176,7 @@ def submit_answer():
     # print(result)
     return jsonify(result)
 
+
 #用户输入转图片创造
 @app.route('/createPlotImage', methods=['GET'])
 def create_plot_image():

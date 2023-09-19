@@ -26,8 +26,8 @@ def init_game_plot(protagonist_name):
                "8、故事的八个回合的情节结构分别是：故事的开端、情节推进、矛盾产生、关键决策、情节发展、高潮冲突、结局逼近、最终结局，八个情节按此顺序逐层递进，缺一不可；"
                "9、你给我的故事情节描述需要有趣好玩，适合儿童阅读，前后逻辑有联系；"
                "10、你返回给我的内容包含如下："
-               "1）round：是整数，从 1 开始递增，1代表第一回合，2代表第二回合，以此类推；如果回复“换一换”则保持不变（继续在当前回合）；"
-               "2）chapter：枚举值：故事的开端（round:1,chapter:故事的开端）、情节推进（round:2,chapter:情节推进）、矛盾产生（round:3,chapter:矛盾产生）、关键决策（（round:4,chapter:关键决策））、情节发展（（round:5,chapter:情节发展））、高潮冲突（round:6,chapter:高潮冲突）、结局逼近（round:7,chapter:解决逼近）、最终结局（round:8,chapter:最终结局）；"
+               "1）round：回合数，是整数，从 1 开始递增，1代表第一回合，2代表第二回合，以此类推；如果回复“换一换”则保持不变（继续在当前回合）；"
+               "2）chapter：章节名，枚举值：故事的开端（round:1,chapter:故事的开端）、情节推进（round:2,chapter:情节推进）、矛盾产生（round:3,chapter:矛盾产生）、关键决策（（round:4,chapter:关键决策））、情节发展（（round:5,chapter:情节发展））、高潮冲突（round:6,chapter:高潮冲突）、结局逼近（round:7,chapter:解决逼近）、最终结局（round:8,chapter:最终结局）；"
                "3）content：具体的故事情节描述内容；"
                "4）choice：故事对应的 3 个选项，用 a、b、c 英文字母序号开头（故事的最后一个回合不提供选项选择）；"
                "11、返回的内容输出成 json 的格式，健值对参考上述序号 10的内容（注意：你输出的内容只需要 json 格式返回，其他格式内容不需要返回）；"
@@ -62,14 +62,13 @@ def init_game_plot(protagonist_name):
 def get_random_plot(game_id):
     game = game_controller.get_game(id=game_id)
     content = json.loads(game['content'])
+    chapter = ['故事的开端', '情节推进', '矛盾产生', '关键决策', '情节发展', '高潮冲突', '结局逼近', '最终结局']
     # print(content[0])
-    round_num = content[0]['round']
-    chapter = content[0]['chapter']
+    # round_num = content[0]['round']
     prompt = json.loads(game['prompt_history'])
     new_entry = {
         'role': 'user',
-        'content': f'换一换，保留round:{round_num},chapter:{chapter};content与choice内容重新生成，不能和之前的重复'
-        # 你可以在这里添加其他键-值对
+        'content': f'换一换（round、chapter不变，重新生成content及choice内容;故事主角不变；）'
     }
     prompt.append(new_entry)
     response = zhipuai.model_api.sse_invoke(
