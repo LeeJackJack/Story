@@ -18,7 +18,6 @@ from controllers.album_controller import get_album, edit_album
 from controllers.game_controller import get_game, reset_game_plot, add_game
 from controllers.image_controller import add_plot_image, get_image, edit_image
 from controllers.theme_controller import get_theme_list, add_theme, get_theme
-from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
 from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
     create_plot, test_stream

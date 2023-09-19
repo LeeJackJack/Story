@@ -24,8 +24,8 @@ def add_game(user_id, protagonist_id, theme_id,
     new_content = json.loads(gpt['add'])
     new_prompt_history = [{
         'role': 'user',
-        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{theme.theme}，游戏主角：{protagonist.name}，游戏故事：{theme.description}）；"
-                   "2、游戏总共 8 回合，你将回复故事情节内容描述及 3 个选项；"
+        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏背景：{theme.theme}，游戏主角：{protagonist.name + '，' +protagonist.description}，故事概述：{theme.description}）；"
+                   "2、你要基于游戏背景，游戏主角及故事描述，创建8个回合的游戏，你将回复故事情节内容描述及 3 个选项；"
                    "3、你需要首先给我第一个场景及情节描述，并给我提供 3 个选项；"
                    "5、如果我回复“自定义”，则根据“自定义”的内容继续生成下一回合内容（round、chapter、content及choice改变，根据选项生成下一回合所需内容）；"
                    "6、每个回合的故事情节描述必须控制在 80 字以内。故事需要在第八回合结束（在round:8,chapter:最终结局时结束）；"
@@ -36,7 +36,7 @@ def add_game(user_id, protagonist_id, theme_id,
                    "2）chapter：枚举值：故事的开端（round:1,chapter:故事的开端）、情节推进（round:2,chapter:情节推进）、矛盾产生（round:3,chapter:矛盾产生）、关键决策（（round:4,chapter:关键决策））、情节发展（（round:5,chapter:情节发展））、高潮冲突（round:6,chapter:高潮冲突）、结局逼近（round:7,chapter:解决逼近）、最终结局（round:8,chapter:最终结局）；"
                    "3）content：具体的故事情节描述内容；"
                    "10、返回的内容输出成 json 的格式，健值对参考上述序号9的内容（注意：你输出的内容只需要 json 格式返回，其他格式内容不需要返回）；"
-                   "11、注意，请严格按照下面示例的格式，内容请按照上述 1-10 点要求创作，示例如下："
+                   "11、注意，请严格按照下面示例的格式（仅参考输出格式，内容请严格按照上述 1-10 点要求创作），具体示例如下："
                    "{\"round\":1,\"chapter\":\"故事的开端\",\"content\":\"你收到了霍格沃茨的入学通知书，搭乘霍格沃茨特快列车来到了这所神秘的魔法学校。列车穿过山峦和森林，最后抵达了你的目的地。远远望去，霍格沃茨魔法学校屹立在一座高高的山顶上，城堡式的建筑气势恢宏，令人叹为观止。你怀揣着激动的心情，跟随其他新生一起走下列车，准备进入学校开始新的魔法生活。\",\"choice\":[\"a. 走进学校大门\",\"b. 先去参观大礼堂\",\"c. 沿着湖边小路走\"]}"
                    "12、输出之前，请仔细检查一次是否均满足上述所说的 11 条规则再输出。"
     },{
