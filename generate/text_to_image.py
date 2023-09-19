@@ -42,7 +42,9 @@ def test_generate_and_stream():
     )
 
     # prompt = request.json.get('prompt')
-    prompt = "a young hero, brandishing a sword and shield, stands before a massive dragon's lair, determined to rescue the captured Snow White. The scene is filled with an eerie atmosphere, surrounded by the darkness of the lair and the light of the hero's determination.,master piece,cg,4k,best quality,"
+    prompt = "a young hero, brandishing a sword and shield, stands before a massive dragon's lair, determined to " \
+             "rescue the captured Snow White. The scene is filled with an eerie atmosphere, surrounded by the " \
+             "darkness of the lair and the light of the hero's determination.,master piece,cg,4k,best quality,"
     # print(prompt)
 
     answers = stability_api.generate(

@@ -63,6 +63,7 @@ class AlbumTheme(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     valid = db.Column(db.Boolean, default=True)
+    preset = db.Column(db.Boolean, default=False)  # 是否为预设主题
 
 
 # 主题剧情表

@@ -24,7 +24,7 @@ def add_game(user_id, protagonist_id, theme_id,
     new_content = json.loads(gpt['add'])
     new_prompt_history = [{
         'role': 'user',
-        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{theme.description}，主角：{protagonist.name}）；"
+        'content': f"1、我希望你扮演一个基于文本的冒险游戏（游戏主题：{theme.theme}，游戏主角：{protagonist.name}，游戏故事：{theme.description}）；"
                    "2、游戏总共 8 回合，你将回复故事情节内容描述及 3 个选项；"
                    "3、你需要首先给我第一个场景及情节描述，并给我提供 3 个选项；"
                    "5、如果我回复“自定义”，则根据“自定义”的内容继续生成下一回合内容（round、chapter、content及choice改变，根据选项生成下一回合所需内容）；"

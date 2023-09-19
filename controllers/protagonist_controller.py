@@ -8,7 +8,7 @@ from controllers.protagonist_image_controller import edit_protagonist_image
 
 
 # 创建角色
-def add_protagonist(user_id, description, name, race, feature, preset,image_id=None):
+def add_protagonist(user_id=None, description=None, name=None, race=None, feature=None, preset=None,image_id=None):
     # print(image_id)
     new_protagonist = Protagonist(
         description=description,
@@ -37,8 +37,6 @@ def add_protagonist(user_id, description, name, race, feature, preset,image_id=N
     db.session.commit()
     
     return new_protagonist.id
-
-
 
 
 def get_protagonist(id: int) -> dict:
@@ -128,8 +126,23 @@ def get_preset_role(user_id,preset=False):
         "image_id": 217  # 提取角色图像ID
     }
 
+
 # 根据编辑的描述生成图片
 def generate_role_image(description):
     # 在此处实现您的逻辑
     return ...
 
+
+def get_protagonist_list(n):
+    protagonists = Protagonist.query.filter_by(preset=True).order_by(func.random()).limit(n).all()
+    protagonists_list = []
+    for protagonist in protagonists:
+        protagonist_dict = {
+            'id': protagonist.id,
+            'name': protagonist.name,
+            'race': protagonist.race,
+            'feature': protagonist.feature,
+            'description': protagonist.description,
+        }
+        protagonists_list.append(protagonist_dict)
+    return protagonists_list

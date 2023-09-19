@@ -1,0 +1,1014 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:50:00] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:50:00] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:50:01] "GET /wxLogin?code=0a3df52001ZPDQ15VA300m3SSA1df52L HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:25] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:25] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:26] "GET /wxLogin?code=0c3IW50w34j4l13hsP1w3T8EwG1IW50h HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:38] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:38] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:52:38] "GET /wxLogin?code=0e33gg100DREEQ1iVx300WhuCF43gg1l HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:53:15] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:53:15] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:53:17] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:53:17] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 09:53:18] "GET /wxLogin?code=0a3YZ50w3al4l13eS80w3xaS1k4YZ50z HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:15:04] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:15:04] "GET /getThemeData HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:https://api.weixin.qq.com:443 "GET /sns/jscode2session?appid=wx95f8f3930021e0bb&secret=b7ce8fc53c589d2fbff240c16dd222aa&js_code=0d3SCh100MPFEQ1wyT300HP6SA1SCh1t&grant_type=authorization_code HTTP/1.1" 200 82
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:15:04] "GET /wxLogin?code=0d3SCh100MPFEQ1wyT300HP6SA1SCh1t HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:17:27] "[31m[1mGET /testStream HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:17:27] "GET /getThemeData HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:https://api.weixin.qq.com:443 "GET /sns/jscode2session?appid=wx95f8f3930021e0bb&secret=b7ce8fc53c589d2fbff240c16dd222aa&js_code=0f3zO22w3tnaj13CLg1w3uTHQC3zO22D&grant_type=authorization_code HTTP/1.1" 200 82
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:17:28] "GET /wxLogin?code=0f3zO22w3tnaj13CLg1w3uTHQC3zO22D HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:21:38] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:21:38] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:21:41] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:21:41] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:https://api.weixin.qq.com:443 "GET /sns/jscode2session?appid=wx95f8f3930021e0bb&secret=b7ce8fc53c589d2fbff240c16dd222aa&js_code=0c3RY0100KvYEQ1Nln200criif1RY01E&grant_type=authorization_code HTTP/1.1" 200 82
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:21:41] "GET /wxLogin?code=0c3RY0100KvYEQ1Nln200criif1RY01E HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:24:45] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:24:45] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:https://api.weixin.qq.com:443 "GET /sns/jscode2session?appid=wx95f8f3930021e0bb&secret=b7ce8fc53c589d2fbff240c16dd222aa&js_code=0f3n1c0009ZNFQ17J0000e0gyh1n1c0L&grant_type=authorization_code HTTP/1.1" 200 83
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:24:46] "GET /wxLogin?code=0f3n1c0009ZNFQ17J0000e0gyh1n1c0L HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:29:03] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:29:03] "GET /getThemeData HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:https://api.weixin.qq.com:443 "GET /sns/jscode2session?appid=wx95f8f3930021e0bb&secret=b7ce8fc53c589d2fbff240c16dd222aa&js_code=0f3gkX0w3Vphk13MOM3w3tzAZc1gkX06&grant_type=authorization_code HTTP/1.1" 200 82
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:29:04] "GET /wxLogin?code=0f3gkX0w3Vphk13MOM3w3tzAZc1gkX06 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:31:13] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 10:33:23] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/main.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/main.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:28:58] "[33mGET /socket.io/?EIO=4&transport=websocket/echo HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:01] "[33mGET /socket.io/?EIO=4&transport=websocket/echo HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:06] "[33mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:08] "[33mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:13] "[35m[1mGET /echo HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:16] "[35m[1mGET /echo HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:16] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:16] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:37] "[35m[1mGET /echo HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:37] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:37] "GET /getThemeData HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:40] "[35m[1mGET /echo HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 744-725-227
+INFO:werkzeug:127.0.0.1 - - [12/Sep/2023 15:29:56] "[35m[1mGET /echo HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:engineio.server:n6xXSfEEWhaqSROeAAAA: Sending packet OPEN data {'sid': 'n6xXSfEEWhaqSROeAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:n6xXSfEEWhaqSROeAAAA: Received request to upgrade to websocket
+INFO:engineio.server:n6xXSfEEWhaqSROeAAAA: Upgrade to websocket successful
+INFO:engineio.server:n6xXSfEEWhaqSROeAAAA: Sending packet PING data None
+INFO:engineio.server:n6xXSfEEWhaqSROeAAAA: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:OmjXGjYWlK0B4ufSAAAA: Sending packet OPEN data {'sid': 'OmjXGjYWlK0B4ufSAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:OmjXGjYWlK0B4ufSAAAA: Received request to upgrade to websocket
+INFO:engineio.server:OmjXGjYWlK0B4ufSAAAA: Upgrade to websocket successful
+INFO:engineio.server:ZvjojRRj377o4N4mAAAB: Sending packet OPEN data {'sid': 'ZvjojRRj377o4N4mAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:ZvjojRRj377o4N4mAAAB: Received request to upgrade to websocket
+INFO:engineio.server:ZvjojRRj377o4N4mAAAB: Upgrade to websocket successful
+INFO:engineio.server:f2xNQSI3pkTyMIXOAAAC: Sending packet OPEN data {'sid': 'f2xNQSI3pkTyMIXOAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:f2xNQSI3pkTyMIXOAAAC: Received request to upgrade to websocket
+INFO:engineio.server:f2xNQSI3pkTyMIXOAAAC: Upgrade to websocket successful
+INFO:engineio.server:n6NjdWLg3v8xrs91AAAD: Sending packet OPEN data {'sid': 'n6NjdWLg3v8xrs91AAAD', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:n6NjdWLg3v8xrs91AAAD: Received request to upgrade to websocket
+INFO:engineio.server:n6NjdWLg3v8xrs91AAAD: Upgrade to websocket successful
+INFO:engineio.server:OmjXGjYWlK0B4ufSAAAA: Sending packet PING data None
+INFO:engineio.server:ZvjojRRj377o4N4mAAAB: Sending packet PING data None
+INFO:engineio.server:n6bmG4eyW-cTzAl6AAAE: Sending packet OPEN data {'sid': 'n6bmG4eyW-cTzAl6AAAE', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:n6bmG4eyW-cTzAl6AAAE: Received request to upgrade to websocket
+INFO:engineio.server:n6bmG4eyW-cTzAl6AAAE: Upgrade to websocket successful
+INFO:engineio.server:f2xNQSI3pkTyMIXOAAAC: Sending packet PING data None
+INFO:engineio.server:n6NjdWLg3v8xrs91AAAD: Sending packet PING data None
+INFO:engineio.server:OmjXGjYWlK0B4ufSAAAA: Unexpected error "timed out", closing connection
+INFO:engineio.server:ZvjojRRj377o4N4mAAAB: Unexpected error "timed out", closing connection
+INFO:engineio.server:f2xNQSI3pkTyMIXOAAAC: Unexpected error "timed out", closing connection
+INFO:engineio.server:n6NjdWLg3v8xrs91AAAD: Unexpected error "timed out", closing connection
+INFO:engineio.server:n6bmG4eyW-cTzAl6AAAE: Sending packet PING data None
+INFO:engineio.server:n6bmG4eyW-cTzAl6AAAE: Unexpected error "timed out", closing connection
+INFO:engineio.server:lJJGWHjSQDFp2vfyAAAF: Sending packet OPEN data {'sid': 'lJJGWHjSQDFp2vfyAAAF', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:lJJGWHjSQDFp2vfyAAAF: Received request to upgrade to websocket
+INFO:engineio.server:lJJGWHjSQDFp2vfyAAAF: Upgrade to websocket successful
+INFO:engineio.server:lJJGWHjSQDFp2vfyAAAF: Sending packet PING data None
+INFO:engineio.server:lJJGWHjSQDFp2vfyAAAF: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:I36MRnSEI73jqUEUAAAA: Sending packet OPEN data {'sid': 'I36MRnSEI73jqUEUAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:I36MRnSEI73jqUEUAAAA: Received request to upgrade to websocket
+INFO:engineio.server:I36MRnSEI73jqUEUAAAA: Upgrade to websocket successful
+INFO:engineio.server:pIMY_YOCG2o5DvvkAAAB: Sending packet OPEN data {'sid': 'pIMY_YOCG2o5DvvkAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:pIMY_YOCG2o5DvvkAAAB: Received request to upgrade to websocket
+INFO:engineio.server:pIMY_YOCG2o5DvvkAAAB: Upgrade to websocket successful
+INFO:engineio.server:I36MRnSEI73jqUEUAAAA: Sending packet PING data None
+INFO:engineio.server:pIMY_YOCG2o5DvvkAAAB: Sending packet PING data None
+INFO:engineio.server:I36MRnSEI73jqUEUAAAA: Unexpected error "timed out", closing connection
+INFO:engineio.server:pIMY_YOCG2o5DvvkAAAB: Unexpected error "timed out", closing connection
+INFO:engineio.server:Ho5hSMubC8i1b0t-AAAC: Sending packet OPEN data {'sid': 'Ho5hSMubC8i1b0t-AAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:Ho5hSMubC8i1b0t-AAAC: Received request to upgrade to websocket
+INFO:engineio.server:Ho5hSMubC8i1b0t-AAAC: Upgrade to websocket successful
+INFO:engineio.server:Ho5hSMubC8i1b0t-AAAC: Sending packet PING data None
+INFO:engineio.server:Ho5hSMubC8i1b0t-AAAC: Unexpected error "timed out", closing connection
+INFO:engineio.server:K--fYrSg0gv7p2QQAAAD: Sending packet OPEN data {'sid': 'K--fYrSg0gv7p2QQAAAD', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:K--fYrSg0gv7p2QQAAAD: Received request to upgrade to websocket
+INFO:engineio.server:K--fYrSg0gv7p2QQAAAD: Upgrade to websocket successful
+INFO:engineio.server:jMQ74NFm03QjKEd1AAAE: Sending packet OPEN data {'sid': 'jMQ74NFm03QjKEd1AAAE', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:jMQ74NFm03QjKEd1AAAE: Received request to upgrade to websocket
+INFO:engineio.server:jMQ74NFm03QjKEd1AAAE: Upgrade to websocket successful
+INFO:engineio.server:jMQ74NFm03QjKEd1AAAE: Sending packet PING data None
+INFO:engineio.server:jMQ74NFm03QjKEd1AAAE: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:ma6mV85_qH34Qd2LAAAA: Sending packet OPEN data {'sid': 'ma6mV85_qH34Qd2LAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:ma6mV85_qH34Qd2LAAAA: Received request to upgrade to websocket
+INFO:engineio.server:ma6mV85_qH34Qd2LAAAA: Upgrade to websocket successful
+INFO:engineio.server:ma6mV85_qH34Qd2LAAAA: Sending packet PING data None
+INFO:engineio.server:ma6mV85_qH34Qd2LAAAA: Unexpected error "timed out", closing connection
+INFO:engineio.server:uH2ekKU8J6p9LR6oAAAB: Sending packet OPEN data {'sid': 'uH2ekKU8J6p9LR6oAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:uH2ekKU8J6p9LR6oAAAB: Received request to upgrade to websocket
+INFO:engineio.server:uH2ekKU8J6p9LR6oAAAB: Upgrade to websocket successful
+INFO:engineio.server:uH2ekKU8J6p9LR6oAAAB: Sending packet PING data None
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Sending packet OPEN data {'sid': 'oUn9EIlNCMKUloziAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Received request to upgrade to websocket
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Upgrade to websocket successful
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Sending packet PING data None
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Sending packet OPEN data {'sid': 'SPRbRQ7jEad3ZQYMAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Received request to upgrade to websocket
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Upgrade to websocket successful
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Client is gone, closing socket
+INFO:engineio.server:oUn9EIlNCMKUloziAAAA: Client is gone, closing socket
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Sending packet PING data None
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Sending packet OPEN data {'sid': 'P2ASccSfyK1B1A5YAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Received request to upgrade to websocket
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Upgrade to websocket successful
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Client is gone, closing socket
+INFO:engineio.server:SPRbRQ7jEad3ZQYMAAAB: Client is gone, closing socket
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Sending packet PING data None
+INFO:engineio.server:DoaB8ZSb8IRDf6x2AAAD: Sending packet OPEN data {'sid': 'DoaB8ZSb8IRDf6x2AAAD', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:DoaB8ZSb8IRDf6x2AAAD: Received request to upgrade to websocket
+INFO:engineio.server:DoaB8ZSb8IRDf6x2AAAD: Upgrade to websocket successful
+INFO:engineio.server:DoaB8ZSb8IRDf6x2AAAD: Received packet CLOSE data ,2,3,4
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Client is gone, closing socket
+INFO:engineio.server:P2ASccSfyK1B1A5YAAAC: Client is gone, closing socket
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:lN7C35bO4d0TfLziAAAA: Sending packet OPEN data {'sid': 'lN7C35bO4d0TfLziAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:lN7C35bO4d0TfLziAAAA: Received request to upgrade to websocket
+INFO:engineio.server:lN7C35bO4d0TfLziAAAA: Upgrade to websocket successful
+INFO:engineio.server:lN7C35bO4d0TfLziAAAA: Received packet CLOSE data ,2,3,4
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:7HAjnQTRWbZK0-t8AAAA: Sending packet OPEN data {'sid': '7HAjnQTRWbZK0-t8AAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:7HAjnQTRWbZK0-t8AAAA: Received request to upgrade to websocket
+INFO:engineio.server:7HAjnQTRWbZK0-t8AAAA: Upgrade to websocket successful
+INFO:engineio.server:7HAjnQTRWbZK0-t8AAAA: Received packet CLOSE data ,2,3,4
+INFO:engineio.server:SkXGhxzwIe0ZiVcJAAAB: Sending packet OPEN data {'sid': 'SkXGhxzwIe0ZiVcJAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:SkXGhxzwIe0ZiVcJAAAB: Received request to upgrade to websocket
+INFO:engineio.server:SkXGhxzwIe0ZiVcJAAAB: Upgrade to websocket successful
+INFO:engineio.server:SkXGhxzwIe0ZiVcJAAAB: Received packet CLOSE data ,2,3,4
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:hNAjI2eiqLLkLcsTAAAA: Sending packet OPEN data {'sid': 'hNAjI2eiqLLkLcsTAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:hNAjI2eiqLLkLcsTAAAA: Received request to upgrade to websocket
+INFO:engineio.server:hNAjI2eiqLLkLcsTAAAA: Upgrade to websocket successful
+INFO:engineio.server:hNAjI2eiqLLkLcsTAAAA: Received packet CLOSE data ,2,3,4
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Sending packet OPEN data {'sid': 'il1Yf9tDllcYgQYzAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Received request to upgrade to websocket
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Upgrade to websocket successful
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Received packet PING data ,2,3,4
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Sending packet PING data None
+INFO:engineio.server:il1Yf9tDllcYgQYzAAAB: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Sending packet OPEN data {'sid': '7gNOn4R8V3rugPzfAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Received request to upgrade to websocket
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Upgrade to websocket successful
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Received packet PING data ,2,3,4
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Sending packet PING data None
+INFO:engineio.server:7gNOn4R8V3rugPzfAAAA: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+ERROR:engineio.server:Invalid transport (further occurrences of this error will be logged with level INFO)
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+ERROR:app_instance:Bad Request: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Sending packet OPEN data {'sid': 'jjqKXH7k6YUkkD_qAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Received request to upgrade to websocket
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Upgrade to websocket successful
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Received packet PING data ,2,3,4
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Sending packet PING data None
+INFO:engineio.server:jjqKXH7k6YUkkD_qAAAA: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 103-525-640
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Sending packet OPEN data {'sid': 'Kwpm3oYjuvWKc9AfAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Received request to upgrade to websocket
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Upgrade to websocket successful
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Received packet PING data ,2,3,4
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Sending packet PING data None
+INFO:engineio.server:Kwpm3oYjuvWKc9AfAAAA: Unexpected error "timed out", closing connection
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Sending packet OPEN data {'sid': 'fYCBLjFO020h9-jMAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Received request to upgrade to websocket
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Upgrade to websocket successful
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Sending packet OPEN data {'sid': 'IOshD2cRs0A_NK-MAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Received request to upgrade to websocket
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Upgrade to websocket successful
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Sending packet PING data None
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Sending packet PING data None
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Client is gone, closing socket
+INFO:engineio.server:fYCBLjFO020h9-jMAAAB: Client is gone, closing socket
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Client is gone, closing socket
+INFO:engineio.server:IOshD2cRs0A_NK-MAAAC: Client is gone, closing socket
+INFO:engineio.server:_0kjD_xp7UuAfqQ4AAAD: Sending packet OPEN data {'sid': '_0kjD_xp7UuAfqQ4AAAD', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:_0kjD_xp7UuAfqQ4AAAD: Received request to upgrade to websocket
+INFO:engineio.server:_0kjD_xp7UuAfqQ4AAAD: Upgrade to websocket successful
+INFO:engineio.server:_0kjD_xp7UuAfqQ4AAAD: Received packet PING data ['my_event', {'data': 'hello'}]
+INFO:engineio.server:_0kjD_xp7UuAfqQ4AAAD: Sending packet PING data None
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Sending packet OPEN data {'sid': 'xUkDqumwugjcE_g5AAAE', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Received request to upgrade to websocket
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Upgrade to websocket successful
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Received packet PING data ['ping', {'data': 'hello'}]
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Sending packet PING data None
+INFO:engineio.server:xUkDqumwugjcE_g5AAAE: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Sending packet OPEN data {'sid': 'Tcz0cBy6kaMYek-PAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Received request to upgrade to websocket
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Upgrade to websocket successful
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Received packet PING data ['ping', {'data': 'hello'}]
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Sending packet PING data None
+INFO:engineio.server:Tcz0cBy6kaMYek-PAAAA: Unexpected error "timed out", closing connection
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Sending packet OPEN data {'sid': 'XP_I54bRupUg39oqAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Received request to upgrade to websocket
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Upgrade to websocket successful
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Received packet PONG data ['ping', {'data': 'hello'}]
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Sending packet PING data None
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Sending packet PING data None
+INFO:engineio.server:XP_I54bRupUg39oqAAAB: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:engineio.server:wwYp7SO3OlompnBBAAAA: Sending packet OPEN data {'sid': 'wwYp7SO3OlompnBBAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:wwYp7SO3OlompnBBAAAA: Received request to upgrade to websocket
+INFO:engineio.server:wwYp7SO3OlompnBBAAAA: Upgrade to websocket successful
+INFO:engineio.server:wwYp7SO3OlompnBBAAAA: Received packet PONG data ['ping', {'data': 'hello'}]
+INFO:engineio.server:unDgfYHMuCNwmvMKAAAB: Sending packet OPEN data {'sid': 'unDgfYHMuCNwmvMKAAAB', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:unDgfYHMuCNwmvMKAAAB: Received request to upgrade to websocket
+INFO:engineio.server:unDgfYHMuCNwmvMKAAAB: Upgrade to websocket successful
+INFO:engineio.server:wAIow3smC4DEgfwmAAAC: Sending packet OPEN data {'sid': 'wAIow3smC4DEgfwmAAAC', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:wAIow3smC4DEgfwmAAAC: Received request to upgrade to websocket
+INFO:engineio.server:wAIow3smC4DEgfwmAAAC: Upgrade to websocket successful
+INFO:engineio.server:wAIow3smC4DEgfwmAAAC: Received packet MESSAGE data ['ping', {'data': 'hello'}]
+ERROR:engineio.server:message handler error
+Traceback (most recent call last):
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/engineio/server.py", line 644, in _trigger_event
+    return self.handlers[event](*args)
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/socketio/server.py", line 795, in _handle_eio_message
+    raise ValueError('Unknown packet type.')
+ValueError: Unknown packet type.
+INFO:engineio.server:wAIow3smC4DEgfwmAAAC: Sending packet PING data None
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Sending packet OPEN data {'sid': 'nc_QefD4yOVO-fZBAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Received request to upgrade to websocket
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Upgrade to websocket successful
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Received packet MESSAGE data ['ping', {'data': 'hello'}]
+ERROR:engineio.server:message handler error
+Traceback (most recent call last):
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/engineio/server.py", line 644, in _trigger_event
+    return self.handlers[event](*args)
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/socketio/server.py", line 795, in _handle_eio_message
+    raise ValueError('Unknown packet type.')
+ValueError: Unknown packet type.
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Sending packet PING data None
+INFO:engineio.server:nc_QefD4yOVO-fZBAAAA: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Sending packet OPEN data {'sid': 'qthW-Ur_QG7ZXfXqAAAA', 'upgrades': [], 'pingTimeout': 20000, 'pingInterval': 25000}
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Received request to upgrade to websocket
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Upgrade to websocket successful
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Received packet MESSAGE data ['ping', {'data': 'hello'}]
+ERROR:engineio.server:message handler error
+Traceback (most recent call last):
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/engineio/server.py", line 644, in _trigger_event
+    return self.handlers[event](*args)
+  File "/Users/lee/code/story/venv/lib/python3.8/site-packages/socketio/server.py", line 795, in _handle_eio_message
+    raise ValueError('Unknown packet type.')
+ValueError: Unknown packet type.
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Sending packet PING data None
+INFO:engineio.server:qthW-Ur_QG7ZXfXqAAAA: Unexpected error "timed out", closing connection
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 136-761-199
+ERROR:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+INFO:engineio.server:The client is using an unsupported version of the Socket.IO or Engine.IO protocols
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.weixin.qq.com:443
+INFO:werkzeug: * Detected change in '/Users/lee/code/story/app_instance.py', reloading
+INFO:werkzeug: * Restarting with stat

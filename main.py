@@ -1,3 +1,4 @@
+# main.py
 import json
 from flask import Flask, render_template, request, stream_with_context, Response, jsonify
 import requests
@@ -10,17 +11,19 @@ import os
 from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user, find_user_by_open_id, edit_user
 from tools.ali_oss import upload_pic
-from controllers.protagonist_controller import get_preset_role, generate_role_image,get_protagonist
+from controllers.protagonist_controller import get_preset_role, generate_role_image, get_protagonist, get_protagonist_list, add_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
-from controllers.game_controller import get_game, reset_game_plot
+from controllers.game_controller import get_game, reset_game_plot, add_game
 from controllers.image_controller import add_plot_image, get_image, edit_image
-from controllers.theme_controller import get_theme_list
+from controllers.theme_controller import get_theme_list, add_theme, get_theme
 from app_instance import app
 from controllers.pro_and_alb_controller import create_pro_and_alb
-from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, create_plot
+from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
+    create_plot, test_stream
 from flask_jwt_extended import JWTManager, create_access_token
+from app_instance import app
 
 
 load_dotenv()  # 加载 .env 文件中的变量
@@ -130,6 +133,7 @@ def create_pro_and_alb_route():
     data = request.json
     user_id = int(data.get('user_id'))
     description = data.get('description')
+    protagonist_id = int(data.get('protagonist'))
     name = data.get('name')
     race = data.get('race')
     feature = data.get('feature')
@@ -291,12 +295,58 @@ def wx_login_update():
 
 # 获取故事主题信息
 @app.route('/getThemeData', methods=['GET'])
-def get_theme_data():
+def get_theme_data_list():
     result = get_theme_list()
     print(result)
     return jsonify(result)
 
 
+# 获取随机n个角色信息
+@app.route('/getRoleData', methods=['GET'])
+def get_random_protagonist_data():
+    n = 7
+    result = get_protagonist_list(n)
+    print(result)
+    return jsonify(result)
+
+
+# 用户自定义角色信息
+@app.route('/createRoleData', methods=['GET'])
+def create_protagonist_data():
+    name = request.args.get('name')
+    description = request.args.get('description')
+    user_id = request.args.get('user_id')
+    result = add_protagonist(user_id=user_id, description=description, name=name, preset=False)
+    return jsonify(result)
+
+
+# 用户自定义故事主题
+@app.route('/createThemeData', methods=['GET'])
+def create_theme_data():
+    theme = request.args.get('theme')
+    description = request.args.get('description')
+    result = add_theme(theme=theme, description=description, preset=False)
+    return jsonify(result)
+
+
+# 用户根据主角，故事主题创建游戏
+@app.route('/createGameData', methods=['GET'])
+def create_game_data():
+    theme_id = request.args.get('theme_id')
+    user_id = request.args.get('user_id')
+    protagonist_id = request.args.get('protagonist_id')
+    result = add_game(theme_id=theme_id, user_id=user_id, protagonist_id=protagonist_id)
+    return {'new_game_id': result, 'protagonist_id': protagonist_id}
+
+
+# 获取特定故事主题内容
+@app.route('/getTheme', methods=['GET'])
+def get_theme_data():
+    theme_id = request.args.get('theme_id')
+    result = get_theme(theme_id=theme_id)
+    return jsonify(result)
+
+
 if __name__ == '__main__':
     app.run()
-
+    # socketio.run(app, debug=True)
