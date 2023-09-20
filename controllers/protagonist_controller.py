@@ -43,25 +43,20 @@ def get_protagonist(id: int) -> dict:
 
     protagonist_query = Protagonist.query
 
-    protagonist = protagonist_query.filter_by(id=id, valid='1')
-
-    image = protagonist.protagonist_image
-
-    protagonist = protagonist_query.first()
+    protagonist = protagonist_query.filter_by(id=id, valid='1').first()
 
     # 根据查询结果返回相应的值
     if protagonist:
         return {
-            "id": protagonist_query.id,
-            "description": protagonist_query.description,
-            "name": protagonist_query.name,
-            "race": protagonist_query.race,
-            "feature": protagonist_query.feature,
-            "user_edit":protagonist_query.user_edit,
-            "created_at": protagonist_query.created_at,
-            "updated_at": protagonist_query.updated_at,
-            "valid": protagonist_query.valid,
-            "image": image
+            "id": protagonist.id,
+            "description": protagonist.description,
+            "name": protagonist.name,
+            "race": protagonist.race,
+            "feature": protagonist.feature,
+            "preset": protagonist.preset,
+            "created_at": protagonist.created_at,
+            "updated_at": protagonist.updated_at,
+            "valid": protagonist.valid,
         }
     else:
         return {}

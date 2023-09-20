@@ -15,12 +15,12 @@ from controllers.protagonist_controller import get_preset_role, generate_role_im
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
 from controllers.album_controller import get_album, edit_album
-from controllers.game_controller import get_game, reset_game_plot, add_game
+from controllers.game_controller import get_game, reset_game_plot, add_game, save_game_data
 from controllers.image_controller import add_plot_image, get_image, edit_image
 from controllers.theme_controller import get_theme_list, add_theme, get_theme
 from controllers.pro_and_alb_controller import create_pro_and_alb
 from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
-    create_plot, test_stream
+    create_plot, init_game_data
 from flask_jwt_extended import JWTManager, create_access_token
 from app_instance import app
 
@@ -306,7 +306,7 @@ def get_theme_data_list():
 def get_random_protagonist_data():
     n = 7
     result = get_protagonist_list(n)
-    print(result)
+    # print(result)
     return jsonify(result)
 
 
@@ -330,12 +330,20 @@ def create_theme_data():
 
 
 # 用户根据主角，故事主题创建游戏
-@app.route('/createGameData', methods=['GET'])
-def create_game_data():
-    theme_id = request.args.get('theme_id')
-    user_id = request.args.get('user_id')
-    protagonist_id = request.args.get('protagonist_id')
-    result = add_game(theme_id=theme_id, user_id=user_id, protagonist_id=protagonist_id)
+@app.route('/initGameData', methods=['GET'])
+def init_game_start_data():
+    theme_id = int(request.args.get('theme_id'))
+    user_id = int(request.args.get('user_id'))
+    protagonist_id = int(request.args.get('protagonist_id'))
+    # 获取故事主角信息
+    protagonist = get_protagonist(id=protagonist_id)
+    # 获取故事主题信息
+    theme = get_theme(theme_id=theme_id)
+    # 调用大模型，初始化故事的内容
+    init_story_result = init_game_data(theme=json.dumps(theme), protagonist=json.dumps(protagonist))
+    # print(init_story_result)
+    # 保存数据内容到数据库
+    result = save_game_data(user_id=user_id, theme=json.dumps(theme), protagonist=json.dumps(protagonist), game_data=json.dumps(init_story_result))
     return {'new_game_id': result, 'protagonist_id': protagonist_id}
 
 

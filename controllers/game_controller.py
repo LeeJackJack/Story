@@ -236,3 +236,28 @@ def is_json(myjson):
     except json.JSONDecodeError:
         return False
     return True
+
+
+def save_game_data(user_id, theme, protagonist, game_data):
+    theme = json.loads(theme)
+    protagonist = json.loads(protagonist)
+    prompt_history = json.loads(game_data)
+
+    new_game = Game(
+        user_id=user_id,
+        protagonist_id=protagonist['id'],
+        theme_id=theme['id'],
+        content=json.dumps([json.loads(prompt_history[-1]['content'])], ensure_ascii=False),
+        prompt_history=json.dumps(prompt_history, ensure_ascii=False),
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow(),
+        valid=True,
+        if_finish=False
+    )
+
+    # 添加到数据库
+    db.session.add(new_game)
+    db.session.commit()
+
+    # 返回新创建的游戏的ID
+    return new_game.id
