@@ -242,6 +242,7 @@ def save_game_data(user_id, theme, protagonist, game_data):
     theme = json.loads(theme)
     protagonist = json.loads(protagonist)
     prompt_history = json.loads(game_data)
+    # print('history:',prompt_history)
 
     new_game = Game(
         user_id=user_id,
@@ -258,6 +259,7 @@ def save_game_data(user_id, theme, protagonist, game_data):
     # 添加到数据库
     db.session.add(new_game)
     db.session.commit()
+    print(new_game.id)
 
     # 返回新创建的游戏的ID
     return new_game.id

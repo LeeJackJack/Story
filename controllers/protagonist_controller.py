@@ -15,9 +15,6 @@ def add_protagonist(user_id=None, description=None, name=None, race=None, featur
         name=name,
         race=race,
         feature=feature,
-        preset=preset,
-        created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow(),
         valid=True
     )
     db.session.add(new_protagonist)
@@ -54,8 +51,6 @@ def get_protagonist(id: int) -> dict:
             "race": protagonist.race,
             "feature": protagonist.feature,
             "preset": protagonist.preset,
-            "created_at": protagonist.created_at,
-            "updated_at": protagonist.updated_at,
             "valid": protagonist.valid,
         }
     else:

@@ -20,7 +20,7 @@ from controllers.image_controller import add_plot_image, get_image, edit_image
 from controllers.theme_controller import get_theme_list, add_theme, get_theme
 from controllers.pro_and_alb_controller import create_pro_and_alb
 from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
-    create_plot, init_game_data
+    create_plot, init_game_data, test_fake_init
 from flask_jwt_extended import JWTManager, create_access_token
 from app_instance import app
 
@@ -337,11 +337,12 @@ def init_game_start_data():
     protagonist_id = int(request.args.get('protagonist_id'))
     # 获取故事主角信息
     protagonist = get_protagonist(id=protagonist_id)
+    # print(protagonist)
     # 获取故事主题信息
     theme = get_theme(theme_id=theme_id)
     # 调用大模型，初始化故事的内容
     init_story_result = init_game_data(theme=json.dumps(theme), protagonist=json.dumps(protagonist))
-    # print(init_story_result)
+    print(init_story_result)
     # 保存数据内容到数据库
     result = save_game_data(user_id=user_id, theme=json.dumps(theme), protagonist=json.dumps(protagonist), game_data=json.dumps(init_story_result))
     return {'new_game_id': result, 'protagonist_id': protagonist_id}
@@ -353,6 +354,12 @@ def get_theme_data():
     theme_id = request.args.get('theme_id')
     result = get_theme(theme_id=theme_id)
     return jsonify(result)
+
+
+@app.route('/testFakePrompt', methods=['GET'])
+def test_fake_prompt():
+    result = test_fake_init()
+    return result
 
 
 if __name__ == '__main__':
