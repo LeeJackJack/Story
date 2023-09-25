@@ -10,7 +10,6 @@ from database.models import db
 import os
 from flask_cors import cross_origin, CORS
 from controllers.user_controller import add_user, find_user_by_open_id, edit_user
-from tools.ali_oss import upload_pic
 from controllers.protagonist_controller import get_preset_role, generate_role_image, get_protagonist, get_protagonist_list, add_protagonist
 from controllers.story_plot_controller import get_random_story_plot
 from controllers.description_controller import get_description
@@ -19,7 +18,7 @@ from controllers.game_controller import get_game, reset_game_plot, add_game, sav
 from controllers.image_controller import add_plot_image, get_image, edit_image
 from controllers.theme_controller import get_theme_list, add_theme, get_theme
 from controllers.pro_and_alb_controller import create_pro_and_alb
-from generate.qinghua_completions import submit_plot_choice, init_game_plot, get_random_plot, create_img_prompt, \
+from generate.qinghua_completions import submit_plot_choice, get_random_plot, create_img_prompt, \
     create_plot, init_game_data, test_fake_init
 from flask_jwt_extended import JWTManager, create_access_token
 from app_instance import app
@@ -229,10 +228,8 @@ def confirm_chosen_image():
 @app.route('/createChoice', methods=['GET'])
 def create_plot_content():
     choice = request.args.get('choice')
-    content = request.args.get('content')
     game_id = int(request.args.get('game_id'))
-    result = create_plot(content, choice, game_id)
-    # print(result)
+    result = create_plot(choice, game_id)
     return jsonify(result)
 
 
@@ -356,10 +353,10 @@ def get_theme_data():
     return jsonify(result)
 
 
-@app.route('/testFakePrompt', methods=['GET'])
-def test_fake_prompt():
+@app.route('/testFakeInit', methods=['GET'])
+def test_invoke():
     result = test_fake_init()
-    return result
+    return jsonify(result)
 
 
 if __name__ == '__main__':
